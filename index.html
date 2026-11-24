@@ -176,6 +176,8 @@ label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
 input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15.5px;margin-bottom:16px;background:#f7f9fe}
 textarea{min-height:120px;resize:vertical}
 form .btn{border:0;cursor:pointer;width:100%;font-size:16px}
+form .btn-mail{margin-top:10px;background:transparent;color:var(--blue);border:2px solid var(--blue)}
+form .btn-mail:hover{background:var(--blue);color:#fff}
 .note{font-size:13px;color:var(--muted);margin-top:10px;text-align:center}
 
 footer{background:var(--ink);color:#c9d1e6;padding:56px 0 0;font-size:14.5px}
@@ -512,7 +514,8 @@ footer{background:var(--ink);color:#c9d1e6;padding:56px 0 0;font-size:14.5px}
         <label for="f-msg" data-i18n="f_msg">Message</label>
         <textarea id="f-msg" required></textarea>
         <button class="btn btn-gold" type="submit" data-i18n="f_send">Envoyer sur WhatsApp</button>
-        <p class="note" data-i18n="f_note">Votre message s'ouvre dans WhatsApp, prêt à être envoyé.</p>
+        <button class="btn btn-mail" type="button" id="f-mail" data-i18n="f_mail">Envoyer par e-mail</button>
+        <p class="note" data-i18n="f_note">Votre message s'ouvre dans WhatsApp ou dans votre messagerie, prêt à être envoyé.</p>
       </form>
     </div>
   </div>
@@ -544,6 +547,7 @@ footer{background:var(--ink);color:#c9d1e6;padding:56px 0 0;font-size:14.5px}
           <li>📍 Lot 3 206 24, rue Roi Tsimiaro<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Soafeno, Antsiranana</li>
           <li>📞 <a href="tel:+261342036702">+261&nbsp;34&nbsp;20&nbsp;367&nbsp;02</a></li>
           <li>💬 <a href="https://wa.me/261320236702" target="_blank" rel="noopener">WhatsApp : +261&nbsp;32&nbsp;02&nbsp;367&nbsp;02</a></li>
+          <li>✉️ <a href="mailto:contact@nicmada.com">contact@nicmada.com</a></li>
         </ul>
       </div>
     </div>
@@ -647,7 +651,7 @@ const T = {
   ct_phone:"Telefaonina",ct_place:"Adiresy",
   f_name:"Ny anaranao",f_subj:"Lohahevitra",f_msg:"Hafatra",
   f_o1:"Fanamboarana solosaina",f_o2:"Fividianana / fampisehoana rindrambaiko",f_o3:"Rindrambaiko manokana",f_o4:"Hafa",
-  f_send:"Alefa amin'ny WhatsApp",f_note:"Misokatra ao amin'ny WhatsApp ny hafatrao, vonona halefa.",
+  f_send:"Alefa amin'ny WhatsApp",f_mail:"Alefa amin'ny mailaka",f_note:"Misokatra ao amin'ny WhatsApp na amin'ny mailakao ny hafatrao, vonona halefa.",
   foot:"Informatika · Herinaratra & groupe électrogène · Fitaovana ara-pitsaboana · Mekanika fiara"
  },
  en:{
@@ -693,7 +697,7 @@ const T = {
   ct_phone:"Phone",ct_place:"Location",
   f_name:"Your name",f_subj:"Subject",f_msg:"Message",
   f_o1:"Computer repair",f_o2:"Software purchase / demo",f_o3:"Custom software",f_o4:"Other",
-  f_send:"Send via WhatsApp",f_note:"Your message opens in WhatsApp, ready to send.",
+  f_send:"Send via WhatsApp",f_mail:"Send by e-mail",f_note:"Your message opens in WhatsApp or your e-mail app, ready to send.",
   foot:"IT · Electrical & generator sets · Biomedical maintenance · Auto mechanics"
  }
 };
@@ -732,6 +736,14 @@ document.getElementById("form").onsubmit=e=>{
   e.preventDefault();
   const txt=`${document.getElementById("f-subj").value}\n${document.getElementById("f-name").value}\n\n${document.getElementById("f-msg").value}`;
   window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(txt)}`,"_blank");
+};
+// Formulaire -> e-mail
+document.getElementById("f-mail").onclick=()=>{
+  const f=document.getElementById("form");
+  if(!f.reportValidity()) return;
+  const subj=document.getElementById("f-subj").value;
+  const body=`${document.getElementById("f-msg").value}\n\n${document.getElementById("f-name").value}`;
+  location.href=`mailto:contact@nicmada.com?subject=${encodeURIComponent(subj+" — "+document.getElementById("f-name").value)}&body=${encodeURIComponent(body)}`;
 };
 document.getElementById("year").textContent=new Date().getFullYear();
 </script>
