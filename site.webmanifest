@@ -1,0 +1,14 @@
+{
+  "name": "N.I.C Mada — North Informatics Center Madagascar",
+  "short_name": "N.I.C Mada",
+  "description": "Vente, réparation d'ordinateurs, logiciels professionnels et formation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f2a78",
+  "lang": "fr",
+  "icons": [
+    { "src": "/img/logo-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
