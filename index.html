@@ -329,6 +329,13 @@ input,select,textarea{border:1px solid rgba(31,63,174,.15);transition:border-col
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);background:#fff;box-shadow:0 0 0 4px rgba(31,63,174,.12)}
 
 .soft .dlsub:last-child{margin-bottom:36px}
+/* Logos des logiciels */
+.soft .top{flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;gap:14px}
+.soft .top::after{order:1;margin-left:auto}
+.soft .top h3{order:2;flex-basis:100%;margin:0;line-height:1.25}
+.slogo{width:76px;height:76px;flex:none;object-fit:contain;padding:5px;border-radius:14px;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.22),rgba(255,255,255,.05) 70%);border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .3s}
+.slogo.round{padding:0;object-fit:cover}
+.card:hover .slogo{transform:scale(1.08) rotate(-3deg)}
 /* Apparition au défilement */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .3s ease,box-shadow .25s,border-color .2s}
@@ -535,7 +542,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
     </div>
     <div class="grid">
       <div class="card soft">
-        <div class="top"><h3>Phylocompta</h3></div>
+        <div class="top"><img class="slogo" src="img/phylocompta.webp" alt="Logo Phylocompta" width="76" height="76" loading="lazy"><h3>Phylocompta</h3></div>
         <div class="plat">Windows</div>
         <p data-i18n="p_phylo">Comptabilité pour Madagascar, la France et Maurice : facturation, trésorerie, TVA, immobilisations, stocks.</p>
         <a class="btn btn-gold dlbtn" href="https://github.com/phylosirus-png/phylocompta/releases/download/v0.5.0/PhyloCompta.Setup.0.5.0.exe" rel="noopener" data-dl-name="Phylocompta" data-i18n="dl_now">⬇ Télécharger et installer maintenant</a>
@@ -543,7 +550,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
         <a class="more" href="https://phylosirus-png.github.io/phylocompta/" target="_blank" rel="noopener" data-i18n="dl">En savoir plus →</a>
       </div>
       <div class="card soft">
-        <div class="top"><h3>Madmed</h3></div>
+        <div class="top"><img class="slogo" src="img/madmed.webp" alt="Logo Madmed" width="76" height="76" loading="lazy"><h3>Madmed</h3></div>
         <div class="plat">Windows</div>
         <p data-i18n="p_madmed">Le logiciel qui facilite le quotidien professionnel du personnel de santé et la gestion du cabinet médical : patients, consultations, rendez-vous et dossiers.</p>
         <a class="btn btn-gold dlbtn" href="https://github.com/phylosirus-png/madmed/releases/download/v1.10.2/Madmed.Setup.1.10.2.exe" rel="noopener" data-dl-name="Madmed" data-i18n="dl_now">⬇ Télécharger et installer maintenant</a>
@@ -551,14 +558,14 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
         <a class="more" href="https://phylosirus-png.github.io/madmed/" target="_blank" rel="noopener" data-i18n="dl">En savoir plus →</a>
       </div>
       <div class="card soft">
-        <div class="top"><h3>Toakantely</h3></div>
+        <div class="top"><img class="slogo" src="img/toakantely.webp" alt="Logo Toakantely" width="76" height="76" loading="lazy"><h3>Toakantely</h3></div>
         <div class="plat">Windows</div>
         <p data-i18n="p_toak">Gestion de bar et de restaurant, simple pour le personnel : commandes, tables, caisse, stocks, clients et fidélité, réservations et rapports.</p>
         <a class="btn btn-gold dlbtn" href="https://github.com/phylosirus-png/toakantely--setup/releases/download/v1.1.0/Toakantely-Setup-1.1.0.0.exe" rel="noopener" data-i18n="dl_now">⬇ Télécharger et installer maintenant</a>
         <small class="dlsub" data-i18n="dl_sub">Gratuit · essai de 15 jours</small>
       </div>
       <div class="card soft">
-        <div class="top"><h3>Transporteurs Diego-Suarez</h3></div>
+        <div class="top"><img class="slogo round" src="https://play-lh.googleusercontent.com/CAkyeDyvDMZFZk0XXQRybYrn07btKBbPUancsG8ZUHWkA4i3iw-tHws9iTYU3_z_Wk2HfR-xrq3fnIPSaSyynA=s112" alt="Logo Transporteurs Diego-Suarez" width="76" height="76" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><h3>Transporteurs Diego-Suarez</h3></div>
         <div class="plat">Android</div>
         <p data-i18n="p_transp">Application mobile pour trouver et contacter les transporteurs de Diego-Suarez.</p>
         <a class="more" href="https://play.google.com/store/apps/details?id=mg.diegotransport.app" target="_blank" rel="noopener" data-i18n="play">Voir sur Google Play →</a>
