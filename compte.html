@@ -264,7 +264,7 @@ const T = {
   e_login:"E-mail ou mot de passe incorrect.",e_confirm:"Confirmez d'abord votre adresse : ouvrez le lien reçu par e-mail.",
   e_exists:"Un compte existe déjà avec cette adresse. Connectez-vous ou utilisez « Mot de passe oublié ».",
   e_rate:"Trop de tentatives. Patientez quelques minutes puis réessayez.",e_net:"Connexion impossible. Vérifiez votre Internet et réessayez.",
-  e_generic:"Une erreur est survenue. Réessayez ou contactez-nous sur WhatsApp.",e_full:"Désolé, cette formation est complète.",e_unavail:"Cette formation n'est plus disponible.",
+  e_generic:"Une erreur est survenue. Réessayez ou contactez-nous sur WhatsApp.",e_same:"Ce mot de passe est déjà votre mot de passe actuel. Choisissez-en un différent.",e_weak:"Mot de passe trop facile à deviner. Mélangez lettres, chiffres et un symbole.",e_full:"Désolé, cette formation est complète.",e_unavail:"Cette formation n'est plus disponible.",
   ok_signup_mail:"Compte créé ! Ouvrez l'e-mail que nous venons d'envoyer pour confirmer votre adresse, puis connectez-vous.",
   ok_link:"Si un compte existe avec cette adresse, un code vient d'être envoyé par e-mail. Pensez à vérifier les spams.",
   ok_password:"Mot de passe modifié. Vous êtes connecté.",ok_profile:"Profil enregistré.",ok_enroll:"Inscription enregistrée ! Nous vous contacterons pour la confirmer.",
@@ -286,7 +286,7 @@ const T = {
   e_login:"Diso ny mailaka na ny teny miafina.",e_confirm:"Hamafiso aloha ny adiresinao : sokafy ny rohy voaray tamin'ny mailaka.",
   e_exists:"Efa misy kaonty amin'io adiresy io. Midira na ampiasao ny « Adino ny teny miafina ».",
   e_rate:"Be loatra ny andrana. Miandrasa minitra vitsy dia andramo indray.",e_net:"Tsy afaka mifandray. Hamarino ny Internet-nao dia andramo indray.",
-  e_generic:"Nisy olana. Andramo indray na antsoy amin'ny WhatsApp izahay.",e_full:"Miala tsiny, feno ity fiofanana ity.",e_unavail:"Tsy misy intsony ity fiofanana ity.",
+  e_generic:"Nisy olana. Andramo indray na antsoy amin'ny WhatsApp izahay.",e_same:"Io no teny miafinao ankehitriny. Misafidiana hafa.",e_weak:"Mora vinaniana loatra ny teny miafina. Afangaroy litera, isa ary marika.",e_full:"Miala tsiny, feno ity fiofanana ity.",e_unavail:"Tsy misy intsony ity fiofanana ity.",
   ok_signup_mail:"Voaforona ny kaonty ! Sokafy ny mailaka vao nalefanay hanamafisana ny adiresinao, dia midira.",
   ok_link:"Raha misy kaonty amin'io adiresy io dia nalefa tamin'ny mailaka ny kaody. Jereo koa ny spam.",
   ok_password:"Voaova ny teny miafina. Efa tafiditra ianao.",ok_profile:"Voatahiry ny momba anao.",ok_enroll:"Voaray ny fisoratanao anarana ! Hiantso anao izahay hanamafy izany.",
@@ -308,7 +308,7 @@ const T = {
   e_login:"Incorrect email or password.",e_confirm:"Please confirm your address first: open the link we emailed you.",
   e_exists:"An account already exists with this address. Sign in or use “Forgot password”.",
   e_rate:"Too many attempts. Wait a few minutes and try again.",e_net:"Cannot connect. Check your Internet and try again.",
-  e_generic:"Something went wrong. Try again or contact us on WhatsApp.",e_full:"Sorry, this training is full.",e_unavail:"This training is no longer available.",
+  e_generic:"Something went wrong. Try again or contact us on WhatsApp.",e_same:"This is already your current password. Choose a different one.",e_weak:"Password too easy to guess. Mix letters, numbers and a symbol.",e_full:"Sorry, this training is full.",e_unavail:"This training is no longer available.",
   ok_signup_mail:"Account created! Open the email we just sent to confirm your address, then sign in.",
   ok_link:"If an account exists for this address, a code has been sent by email. Check your spam folder too.",
   ok_password:"Password changed. You are signed in.",ok_profile:"Profile saved.",ok_enroll:"Registration received! We will contact you to confirm it.",
@@ -352,6 +352,8 @@ function errText(e){
   if (m.includes("complet")) return t("e_full");
   if (m.includes("formation_indisponible")) return t("e_unavail");
   if (m.includes("failed to fetch") || m.includes("network")) return t("e_net");
+  if (m.includes("different from the old") || m.includes("same_password") || m.includes("same password")) return t("e_same");
+  if (m.includes("weak") || m.includes("pwned") || m.includes("leaked")) return t("e_weak");
   if (m.includes("password") && m.includes("6")) return t("e_pass_len");
   return t("e_generic");
 }
@@ -374,7 +376,7 @@ if (!CFG.SUPABASE_URL || !CFG.SUPABASE_ANON_KEY || !window.supabase) {
     setTimeout(() => { if (!state.user) { showAuth("forgot"); msg("m-auth", t("e_link"), "err"); } }, 900);
   }
   sb.auth.onAuthStateChange((event, session) => {
-    if (event === "PASSWORD_RECOVERY") { state.recovering = true; showAuth("reset"); return; }
+    if (event === "PASSWORD_RECOVERY") { state.recovering = true; if (!state.codeFlow) showAuth("reset"); return; }
     if (state.recovering) return;
     setTimeout(() => onSession(session), 0);   // évite un blocage interne de supabase-js
   });
@@ -450,12 +452,16 @@ $("f-code").onsubmit = async e => {
   const code=$("co-code").value.replace(/\D/g,""), p1=$("co-pass").value, p2=$("co-pass2").value;
   if (p1.length < 8) return msg("m-auth", t("e_pass_len"), "err");
   if (p1 !== p2) return msg("m-auth", t("e_pass_match"), "err");
-  busy(f,true); state.recovering = true;
-  const { error } = await sb.auth.verifyOtp({ email:$("fo-email").value.trim(), token:code, type:"recovery" });
-  if (error) { busy(f,false); state.recovering = false; return msg("m-auth", /rate|many/i.test(error.message||"") ? t("e_rate") : t("e_code"), "err"); }
+  busy(f,true); state.recovering = true; state.codeFlow = true;
+  if (!state.otpOk) {   // le code ne sert qu'une fois : on ne le revérifie pas si seul le mot de passe était refusé
+    const { error } = await sb.auth.verifyOtp({ email:$("fo-email").value.trim(), token:code, type:"recovery" });
+    if (error) { busy(f,false); state.recovering = false; state.codeFlow = false; return msg("m-auth", /rate|many/i.test(error.message||"") ? t("e_rate") : t("e_code"), "err"); }
+    state.otpOk = true;
+  }
   const r = await sb.auth.updateUser({ password:p1 });
-  busy(f,false); state.recovering = false;
-  if (r.error) return msg("m-auth", errText(r.error), "err");
+  busy(f,false);
+  if (r.error) { showAuth("code"); $("co-code").closest("form").querySelectorAll("#co-code").forEach(x => { x.required = false; x.disabled = true; x.value = "✓"; }); return msg("m-auth", errText(r.error), "err"); }
+  state.recovering = false; state.codeFlow = false; state.otpOk = false;
   f.reset();
   const { data } = await sb.auth.getSession();
   await onSession(data.session);
