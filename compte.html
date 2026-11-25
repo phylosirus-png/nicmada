@@ -163,10 +163,23 @@ dialog h3{margin-bottom:6px}
     </form>
 
     <form id="f-forgot" class="hidden">
-      <p style="margin-bottom:14px;color:var(--muted)" data-t="forgot_d">Saisissez votre e-mail : nous vous envoyons un lien pour choisir un nouveau mot de passe.</p>
+      <p style="margin-bottom:14px;color:var(--muted)" data-t="forgot_d">Saisissez votre e-mail : nous vous envoyons un code pour choisir un nouveau mot de passe.</p>
       <label for="fo-email" data-t="email">Adresse e-mail</label>
       <input id="fo-email" type="email" autocomplete="email" required>
-      <button class="btn btn-gold btn-full" type="submit" data-t="send_link">Envoyer le lien</button>
+      <button class="btn btn-gold btn-full" type="submit" data-t="send_link">Recevoir le code</button>
+      <div class="center"><button type="button" class="link" data-back-login data-t="back_login">← Retour à la connexion</button></div>
+    </form>
+
+    <form id="f-code" class="hidden">
+      <p style="margin-bottom:14px;color:var(--muted)" data-t="code_d">Nous vous avons envoyé un e-mail avec un code. Saisissez-le ci-dessous avec votre nouveau mot de passe.</p>
+      <label for="co-code" data-t="code">Code reçu par e-mail</label>
+      <input id="co-code" inputmode="numeric" autocomplete="one-time-code" required pattern="[0-9 ]{6,12}" maxlength="12" style="letter-spacing:6px;font-size:20px;font-weight:700;text-align:center">
+      <label for="co-pass" data-t="new_password">Nouveau mot de passe</label>
+      <input id="co-pass" type="password" autocomplete="new-password" required minlength="8">
+      <label for="co-pass2" data-t="password2">Confirmer</label>
+      <input id="co-pass2" type="password" autocomplete="new-password" required minlength="8">
+      <button class="btn btn-gold btn-full" type="submit" data-t="save_password">Enregistrer</button>
+      <div class="center"><button type="button" class="link" id="b-resend" data-t="resend">Renvoyer un code</button></div>
       <div class="center"><button type="button" class="link" data-back-login data-t="back_login">← Retour à la connexion</button></div>
     </form>
 
@@ -239,7 +252,7 @@ const T = {
   loading:"Chargement…",tab_login:"Connexion",tab_signup:"Créer un compte",email:"Adresse e-mail",password:"Mot de passe",password2:"Confirmer",
   do_login:"Se connecter",forgot:"Mot de passe oublié ?",name:"Nom et prénom",phone:"Téléphone / WhatsApp",city:"Ville",
   accept:"J'accepte la",privacy:"politique de confidentialité",do_signup:"Créer mon compte",
-  forgot_d:"Saisissez votre e-mail : nous vous envoyons un lien pour choisir un nouveau mot de passe.",send_link:"Envoyer le lien",back_login:"← Retour à la connexion",
+  forgot_d:"Saisissez votre e-mail : nous vous envoyons un code pour choisir un nouveau mot de passe.",send_link:"Recevoir le code",code_d:"Nous vous avons envoyé un e-mail avec un code. Saisissez-le ci-dessous avec votre nouveau mot de passe.",code:"Code reçu par e-mail",resend:"Renvoyer un code",ok_resent:"Un nouveau code vient d'être envoyé. Utilisez le plus récent.",e_code:"Code incorrect ou expiré. Vérifiez le dernier e-mail reçu, ou demandez un nouveau code.",e_link:"Ce lien a expiré ou a déjà été utilisé. Demandez un code ci-dessous : c'est plus fiable.",back_login:"← Retour à la connexion",
   reset_d:"Choisissez votre nouveau mot de passe.",new_password:"Nouveau mot de passe",save_password:"Enregistrer",
   hello:"Bonjour",logout:"Se déconnecter",tab_soft:"💻 Mes logiciels",tab_form:"🎓 Formations",tab_mine:"📋 Mes inscriptions",tab_prof:"👤 Mon profil",save:"Enregistrer",
   upcoming:"🎓 Prochaines formations",dlg_d:"Votre demande sera confirmée par N.I.C Mada par téléphone ou WhatsApp.",dlg_msg:"Message (facultatif)",cancel:"Annuler",confirm:"Confirmer l'inscription",
@@ -253,7 +266,7 @@ const T = {
   e_rate:"Trop de tentatives. Patientez quelques minutes puis réessayez.",e_net:"Connexion impossible. Vérifiez votre Internet et réessayez.",
   e_generic:"Une erreur est survenue. Réessayez ou contactez-nous sur WhatsApp.",e_full:"Désolé, cette formation est complète.",e_unavail:"Cette formation n'est plus disponible.",
   ok_signup_mail:"Compte créé ! Ouvrez l'e-mail que nous venons d'envoyer pour confirmer votre adresse, puis connectez-vous.",
-  ok_link:"Si un compte existe avec cette adresse, un lien vient d'être envoyé. Pensez à vérifier les spams.",
+  ok_link:"Si un compte existe avec cette adresse, un code vient d'être envoyé par e-mail. Pensez à vérifier les spams.",
   ok_password:"Mot de passe modifié. Vous êtes connecté.",ok_profile:"Profil enregistré.",ok_enroll:"Inscription enregistrée ! Nous vous contacterons pour la confirmer.",
   ok_already:"Vous êtes déjà inscrit à cette formation.",ok_cancel:"Inscription annulée.",preparing:"Préparation du téléchargement…"},
  mg:{need_account:"Mamorona kaonty maimaim-poana (1 minitra) raha hampidina ny rindrambaikonay. Efa manana kaonty ? Safidio ny « Hiditra ».",trial_note:"Andrana maimaim-poana 15 andro. Raha hanohy avy eo, angataho amin'ny WhatsApp ny kaody fampandehanana : +261\u00a032\u00a002\u00a0367\u00a002.",e_mail:"Mbola tsy mandeha ny fandefasana mailaka. Antsoy amin'ny WhatsApp izahay hamoronana ny kaontinao.",back:"← Hiverina amin'ny tranonkala",title:"Toerana ho an'ny mpanjifa",subtitle:"Ampidino ny rindrambaikonao ary misoratra anarana amin'ny fiofananay.",
@@ -261,7 +274,7 @@ const T = {
   loading:"Miandrasa kely…",tab_login:"Hiditra",tab_signup:"Hamorona kaonty",email:"Adiresy mailaka",password:"Teny miafina",password2:"Hamafiso",
   do_login:"Hiditra",forgot:"Adino ny teny miafina ?",name:"Anarana sy fanampiny",phone:"Telefaonina / WhatsApp",city:"Tanàna",
   accept:"Ekeko ny",privacy:"politika momba ny tsiambaratelo",do_signup:"Hamorona ny kaontiko",
-  forgot_d:"Ampidiro ny mailakao : handefa rohy ahafahanao misafidy teny miafina vaovao izahay.",send_link:"Alefa ny rohy",back_login:"← Hiverina amin'ny fidirana",
+  forgot_d:"Ampidiro ny mailakao : handefa kaody ahafahanao misafidy teny miafina vaovao izahay.",send_link:"Handray ny kaody",code_d:"Nandefa mailaka misy kaody izahay. Ampidiro eto ambany izany miaraka amin'ny teny miafina vaovao.",code:"Kaody voaray tamin'ny mailaka",resend:"Alefaso indray ny kaody",ok_resent:"Nalefa ny kaody vaovao. Ampiasao ilay farany.",e_code:"Diso na lany daty ny kaody. Jereo ny mailaka farany, na mangataha kaody vaovao.",e_link:"Lany daty na efa nampiasaina io rohy io. Mangataha kaody eto ambany.",back_login:"← Hiverina amin'ny fidirana",
   reset_d:"Safidio ny teny miafina vaovao.",new_password:"Teny miafina vaovao",save_password:"Tehirizina",
   hello:"Salama",logout:"Hivoaka",tab_soft:"💻 Ny rindrambaikoko",tab_form:"🎓 Fiofanana",tab_mine:"📋 Ny fisoratako anarana",tab_prof:"👤 Ny momba ahy",save:"Tehirizina",
   upcoming:"🎓 Fiofanana manaraka",dlg_d:"Hamafisin'ny N.I.C Mada amin'ny telefaonina na WhatsApp ny fangatahanao.",dlg_msg:"Hafatra (tsy voatery)",cancel:"Aoka ihany",confirm:"Hamafiso ny fisoratana anarana",
@@ -275,7 +288,7 @@ const T = {
   e_rate:"Be loatra ny andrana. Miandrasa minitra vitsy dia andramo indray.",e_net:"Tsy afaka mifandray. Hamarino ny Internet-nao dia andramo indray.",
   e_generic:"Nisy olana. Andramo indray na antsoy amin'ny WhatsApp izahay.",e_full:"Miala tsiny, feno ity fiofanana ity.",e_unavail:"Tsy misy intsony ity fiofanana ity.",
   ok_signup_mail:"Voaforona ny kaonty ! Sokafy ny mailaka vao nalefanay hanamafisana ny adiresinao, dia midira.",
-  ok_link:"Raha misy kaonty amin'io adiresy io dia nalefa ny rohy. Jereo koa ny spam.",
+  ok_link:"Raha misy kaonty amin'io adiresy io dia nalefa tamin'ny mailaka ny kaody. Jereo koa ny spam.",
   ok_password:"Voaova ny teny miafina. Efa tafiditra ianao.",ok_profile:"Voatahiry ny momba anao.",ok_enroll:"Voaray ny fisoratanao anarana ! Hiantso anao izahay hanamafy izany.",
   ok_already:"Efa nisoratra anarana tamin'ity fiofanana ity ianao.",ok_cancel:"Nofoanana ny fisoratana anarana.",preparing:"Manomana ny fampidinana…"},
  en:{need_account:"Create your free account (1 minute) to download our software. Already registered? Choose “Sign in”.",trial_note:"Free 15-day trial. To keep using it afterwards, request your activation code on WhatsApp at +261\u00a032\u00a002\u00a0367\u00a002.",e_mail:"Email sending is not active yet. Contact us on WhatsApp to create your account.",back:"← Back to site",title:"Customer area",subtitle:"Download your software and sign up for our training courses.",
@@ -283,7 +296,7 @@ const T = {
   loading:"Loading…",tab_login:"Sign in",tab_signup:"Create account",email:"Email address",password:"Password",password2:"Confirm",
   do_login:"Sign in",forgot:"Forgot password?",name:"Full name",phone:"Phone / WhatsApp",city:"City",
   accept:"I accept the",privacy:"privacy policy",do_signup:"Create my account",
-  forgot_d:"Enter your email: we'll send you a link to choose a new password.",send_link:"Send link",back_login:"← Back to sign in",
+  forgot_d:"Enter your email: we'll send you a code to choose a new password.",send_link:"Get the code",code_d:"We sent you an email with a code. Enter it below with your new password.",code:"Code received by email",resend:"Send a new code",ok_resent:"A new code has been sent. Use the most recent one.",e_code:"Wrong or expired code. Check the latest email, or request a new code.",e_link:"This link has expired or was already used. Request a code below instead.",back_login:"← Back to sign in",
   reset_d:"Choose your new password.",new_password:"New password",save_password:"Save",
   hello:"Hello",logout:"Sign out",tab_soft:"💻 My software",tab_form:"🎓 Training",tab_mine:"📋 My registrations",tab_prof:"👤 My profile",save:"Save",
   upcoming:"🎓 Upcoming training",dlg_d:"N.I.C Mada will confirm your request by phone or WhatsApp.",dlg_msg:"Message (optional)",cancel:"Cancel",confirm:"Confirm registration",
@@ -297,7 +310,7 @@ const T = {
   e_rate:"Too many attempts. Wait a few minutes and try again.",e_net:"Cannot connect. Check your Internet and try again.",
   e_generic:"Something went wrong. Try again or contact us on WhatsApp.",e_full:"Sorry, this training is full.",e_unavail:"This training is no longer available.",
   ok_signup_mail:"Account created! Open the email we just sent to confirm your address, then sign in.",
-  ok_link:"If an account exists for this address, a link has been sent. Check your spam folder too.",
+  ok_link:"If an account exists for this address, a code has been sent by email. Check your spam folder too.",
   ok_password:"Password changed. You are signed in.",ok_profile:"Profile saved.",ok_enroll:"Registration received! We will contact you to confirm it.",
   ok_already:"You are already registered for this training.",ok_cancel:"Registration cancelled.",preparing:"Preparing download…"}
 };
@@ -355,6 +368,11 @@ if (!CFG.SUPABASE_URL || !CFG.SUPABASE_ANON_KEY || !window.supabase) {
     auth: { persistSession:true, autoRefreshToken:true, detectSessionInUrl:true }
   });
   applyLang(LANG);
+  const hp = new URLSearchParams(location.hash.slice(1));
+  if (hp.get("error")) {
+    history.replaceState(null, "", location.pathname);
+    setTimeout(() => { if (!state.user) { showAuth("forgot"); msg("m-auth", t("e_link"), "err"); } }, 900);
+  }
   sb.auth.onAuthStateChange((event, session) => {
     if (event === "PASSWORD_RECOVERY") { state.recovering = true; showAuth("reset"); return; }
     if (state.recovering) return;
@@ -381,8 +399,8 @@ async function onSession(session){
 /* ------------------------------ Auth ------------------------------ */
 function showAuth(which){
   show("v-auth");
-  ["f-login","f-signup","f-forgot","f-reset"].forEach(f => $(f).classList.toggle("hidden", f!=="f-"+which));
-  document.querySelector(".tabs").classList.toggle("hidden", which==="forgot" || which==="reset");
+  ["f-login","f-signup","f-forgot","f-code","f-reset"].forEach(f => $(f).classList.toggle("hidden", f!=="f-"+which));
+  document.querySelector(".tabs").classList.toggle("hidden", which==="forgot" || which==="reset" || which==="code");
   document.querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.auth===which));
   clearMsg("m-auth");
 }
@@ -421,7 +439,27 @@ $("f-forgot").onsubmit = async e => {
   busy(f,false);
   if (error && !/rate|security/i.test(error.message||"")) return msg("m-auth", errText(error), "err");
   if (error) return msg("m-auth", t("e_rate"), "err");
-  msg("m-auth", t("ok_link"), "ok");
+  showAuth("code"); msg("m-auth", t("ok_link"), "ok"); $("co-code").focus();
+};
+$("b-resend").onclick = async () => {
+  const { error } = await sb.auth.resetPasswordForEmail($("fo-email").value.trim(), { redirectTo });
+  msg("m-auth", error ? t("e_rate") : t("ok_resent"), error ? "err" : "ok");
+};
+$("f-code").onsubmit = async e => {
+  e.preventDefault(); const f=e.target; clearMsg("m-auth");
+  const code=$("co-code").value.replace(/\D/g,""), p1=$("co-pass").value, p2=$("co-pass2").value;
+  if (p1.length < 8) return msg("m-auth", t("e_pass_len"), "err");
+  if (p1 !== p2) return msg("m-auth", t("e_pass_match"), "err");
+  busy(f,true); state.recovering = true;
+  const { error } = await sb.auth.verifyOtp({ email:$("fo-email").value.trim(), token:code, type:"recovery" });
+  if (error) { busy(f,false); state.recovering = false; return msg("m-auth", /rate|many/i.test(error.message||"") ? t("e_rate") : t("e_code"), "err"); }
+  const r = await sb.auth.updateUser({ password:p1 });
+  busy(f,false); state.recovering = false;
+  if (r.error) return msg("m-auth", errText(r.error), "err");
+  f.reset();
+  const { data } = await sb.auth.getSession();
+  await onSession(data.session);
+  msg("m-dash", t("ok_password"), "ok");
 };
 
 $("f-reset").onsubmit = async e => {
