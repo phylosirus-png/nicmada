@@ -82,7 +82,10 @@ h1,h2,h3,.btn,.stat b,.panel b,.cat,.price,.kicker,.tag{font-family:var(--brand)
 .acct{font-family:var(--brand);font-weight:700;font-size:14.5px;text-decoration:none;color:var(--blue);border:1.5px solid var(--line);padding:7px 14px;border-radius:999px;white-space:nowrap}
 .acct:hover{border-color:var(--gold)}
 @media (max-width:1060px){.acct-t{display:none}.acct{padding:6px 10px}}
-@media (min-width:881px) and (max-width:1180px){.logo .bn em{display:none}}
+.logo{flex-shrink:0}.logo .bn small{white-space:nowrap}
+@media (max-width:1320px){.menu{gap:16px}}
+@media (min-width:881px) and (max-width:1240px){.logo .bn small{display:none}}
+@media (min-width:881px) and (max-width:1000px){.menu{gap:11px}.menu a{font-size:14px}.nav{gap:10px}}
 .m-acct{display:none}
 @media (max-width:520px){.acct{display:none}.m-acct{display:list-item}}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#fff}
@@ -115,9 +118,6 @@ h1,h2,h3,.btn,.stat b,.panel b,.cat,.price,.kicker,.tag{font-family:var(--brand)
 .skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--gold);color:var(--blue);padding:10px 16px;border-radius:8px;font-weight:700}
 .skip:focus{left:12px}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
-.wa-float{position:fixed;right:20px;bottom:20px;z-index:60;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 26px rgba(0,0,0,.25);transition:transform .2s}
-.wa-float:hover{transform:scale(1.08)}
-.wa-float svg{width:32px;height:32px;fill:#fff}
 .btn-gold{background:var(--gold);color:var(--blue)}
 .btn-line{border:2px solid rgba(255,255,255,.5);color:#fff}
 .stats{display:flex;gap:36px;margin-top:56px;flex-wrap:wrap}
@@ -347,17 +347,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
 
 <header>
   <div class="wrap nav">
-    <a href="#top" class="logo"><img src="img/logo-192.webp" alt="Logo N.I.C Mada" width="44" height="44"><span class="bn"><b>N.I.C <span>Mada</span></b><small>North Informatics Center Madagascar</small><em data-i18n="brand_act">Informatique · Électricité · Biomédical · Mécanique</em></span></a>
+    <a href="#top" class="logo"><img src="img/logo-192.webp" alt="Logo N.I.C Mada" width="44" height="44"><span class="bn"><b>N.I.C <span>Mada</span></b><small>North Informatics Center Madagascar</small></span></a>
     <ul class="menu" id="menu">
       <li><a href="#boutique" data-i18n="nav_shop">Boutique</a></li>
       <li><a href="#services" data-i18n="nav_services">Services</a></li>
-      <li><a href="#logiciels" data-i18n="nav_soft">Logiciels</a></li>
+      <li><a href="#logiciels" data-i18n="nav_soft">Logiciels et Téléchargements</a></li>
       <li><a href="#apropos" data-i18n="nav_about">À propos</a></li>
       <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-      <li class="m-acct"><a href="compte.html">👤 <span data-i18n="acct">Mon compte</span></a></li>
+      <li class="m-acct"><a href="compte.html">👤 <span data-i18n="acct">Connexion / Inscription</span></a></li>
     </ul>
     <div class="right">
-      <a class="acct" href="compte.html" title="Espace client"><span aria-hidden="true">👤</span> <span class="acct-t" data-i18n="acct">Mon compte</span></a>
+      <a class="acct" href="compte.html" title="Espace client"><span aria-hidden="true">👤</span> <span class="acct-t" data-i18n="acct">Connexion / Inscription</span></a>
       <div class="lang" role="group" aria-label="Langue">
         <button type="button" data-lang="fr" class="on" aria-pressed="true" title="Français">FR</button>
         <button type="button" data-lang="mg" aria-pressed="false" title="Malagasy">MG</button>
@@ -652,7 +652,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
         <ul>
           <li><a href="#boutique" data-i18n="nav_shop">Boutique</a></li>
           <li><a href="#services" data-i18n="nav_services">Services</a></li>
-          <li><a href="#logiciels" data-i18n="nav_soft">Logiciels</a></li>
+          <li><a href="#logiciels" data-i18n="nav_soft">Logiciels et Téléchargements</a></li>
           <li><a href="#apropos" data-i18n="nav_about">À propos</a></li>
         </ul>
       </div>
@@ -673,7 +673,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/261320236702" target="_blank" rel="noopener" aria-label="WhatsApp N.I.C Mada"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3 29l6.5-2c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.8-1.6l-.4-.2-3.9 1.2 1.2-3.7-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.8 0-5.9 4.9-10.7 10.9-10.7s10.9 4.8 10.9 10.7S22 26.4 16 26.4zm6-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg></a>
 
 <script>
 // ⚠️ Mettre ici le même numéro WhatsApp que plus haut (sans + ni espaces)
@@ -724,7 +723,7 @@ const T = {
   st_neuf:"Neuf",st_reco:"Reconditionné",ask_price:"Prix sur demande",order:"💬 Commander",
   wa_cat:"Bonjour, je cherche :",wa_prod:"Bonjour, je suis intéressé(e) par :"},
  mg:{
-  nav_shop:"Fivarotana",acct:"Ny kaontiko",s4_link:"Hisoratra anarana amin'ny fiofanana →",brand_act:"Informatika · Herinaratra · Fitsaboana · Mekanika",ft_links:"Rohy haingana",legal:"Fanamarihana ara-dalàna & tsiambaratelo",skip:"Mankany amin'ny votoaty",slogan:"« Ny traikefa no mitsara ny teoria ! »",hero_btn3:"🛒 Jereo ny fivarotana",
+  nav_shop:"Fivarotana",acct:"Hiditra / Hisoratra",s4_link:"Hisoratra anarana amin'ny fiofanana →",brand_act:"Informatika · Herinaratra · Fitsaboana · Mekanika",ft_links:"Rohy haingana",legal:"Fanamarihana ara-dalàna & tsiambaratelo",skip:"Mankany amin'ny votoaty",slogan:"« Ny traikefa no mitsara ny teoria ! »",hero_btn3:"🛒 Jereo ny fivarotana",
   hero_tag:"💻\u00a0Informatika\u00a0· ⚡\u00a0Herinaratra\u00a0&\u00a0angovo\u00a0· 🩺\u00a0Fitaovana\u00a0ara-pitsaboana\u00a0· 🚗\u00a0Mekanika\u00a0fiara",
   sh_kicker:"Fivarotana informatika",sh_title:"Solosaina sy fitaovana, notsapain'ny teknisianina",
   sh_text:"Vaovao na nohavaozina, zahana tsara ny fitaovana tsirairay alohan'ny hivarotana azy. Lazao izay tadiavinao, hitadiavanay ny modely mifanaraka amin'ny tetibolanao.",
@@ -732,7 +731,7 @@ const T = {
   c1:"Solosaina finday",c2:"Solosaina birao",c3:"Kojakoja",c4:"Singa sy kojakoja anatiny",c5:"Mpanonta",c6:"Tambajotra & Wi-Fi",
   st_neuf:"Vaovao",st_reco:"Nohavaozina",ask_price:"Anontanio ny vidiny",order:"💬 Hanafatra",
   wa_cat:"Salama, mitady :",wa_prod:"Salama, liana amin'ity aho :",f_o6:"Fividianana solosaina / fitaovana",
-  nav_services:"Tolotra",nav_soft:"Rindrambaiko",nav_about:"Momba anay",nav_contact:"Fifandraisana",
+  nav_services:"Tolotra",nav_soft:"Rindrambaiko sy fampidinana",nav_about:"Momba anay",nav_contact:"Fifandraisana",
   hero_title:"Ny traikefa no mitsara <em>ny teoria !</em>",
   hero_text:"Fivarotana sy fanamboarana solosaina nanomboka tamin'ny 2009, rindrambaiko matihanina ary fiofanana. Fametrahana herinaratra amin'ny trano, groupe électrogène, fikojakojana fitaovana ara-pitsaboana ary mekanika fiara.",
   art_rep:"🔧 Fanamboarana",art_dev:"💻 Famoronana",art_for:"🎓 Fiofanana",f_o5:"Fiofanana",f_o7:"Fametrahana herinaratra",f_o9:"Groupe électrogène",f_o10:"Mekanika fiara",g1:"💻 Informatika",g2:"⚡ Herinaratra, angovo, fitaovana ara-pitsaboana & mekanika",
@@ -770,7 +769,7 @@ const T = {
   foot:"Informatika · Herinaratra & groupe électrogène · Fitaovana ara-pitsaboana · Mekanika fiara"
  },
  en:{
-  nav_shop:"Shop",acct:"My account",s4_link:"Sign up for a training →",brand_act:"IT · Electrical · Biomedical · Mechanics",ft_links:"Quick links",legal:"Legal notice & privacy",skip:"Skip to content",slogan:"« Experience judges theory! »",hero_btn3:"🛒 Visit the shop",
+  nav_shop:"Shop",acct:"Sign in / Sign up",s4_link:"Sign up for a training →",brand_act:"IT · Electrical · Biomedical · Mechanics",ft_links:"Quick links",legal:"Legal notice & privacy",skip:"Skip to content",slogan:"« Experience judges theory! »",hero_btn3:"🛒 Visit the shop",
   hero_tag:"💻\u00a0IT\u00a0· ⚡\u00a0Electrical\u00a0&\u00a0power\u00a0· 🩺\u00a0Biomedical\u00a0· 🚗\u00a0Auto\u00a0mechanics",
   sh_kicker:"IT shop",sh_title:"Computers and hardware, tested by a technician",
   sh_text:"New or refurbished, every device is checked before sale. Tell us what you need and we'll find the right model for your budget.",
@@ -778,7 +777,7 @@ const T = {
   c1:"Laptops",c2:"Desktop PCs",c3:"Accessories",c4:"Parts & components",c5:"Printers",c6:"Network & Wi-Fi",
   st_neuf:"New",st_reco:"Refurbished",ask_price:"Price on request",order:"💬 Order",
   wa_cat:"Hello, I'm looking for:",wa_prod:"Hello, I'm interested in:",f_o6:"Buy a computer / hardware",
-  nav_services:"Services",nav_soft:"Software",nav_about:"About",nav_contact:"Contact",
+  nav_services:"Services",nav_soft:"Software & downloads",nav_about:"About",nav_contact:"Contact",
   hero_title:"Experience <em>judges theory!</em>",
   hero_text:"Computer sales and repair since 2009, professional software and training. Building electrical installation, generator sets, biomedical maintenance and automotive mechanics.",
   art_rep:"🔧 Repair",art_dev:"💻 Development",art_for:"🎓 Training",f_o5:"Training",f_o7:"Electrical installation",f_o9:"Generator set",f_o10:"Automotive mechanics",g1:"💻 IT",g2:"⚡ Electrical, power, biomedical & mechanics",
