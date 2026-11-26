@@ -61,7 +61,8 @@
       .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
       .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>')
       .replace(/(^|[\s(])([\w.+-]+@nicmada\.com)/g, '$1<a href="mailto:$2">$2</a>')
-      .replace(/^\s*[-*]\s+/gm, "• ");
+      .replace(/^([ \t]*)[-*]\s+/gm, "$1• ")
+      .replace(/(^|[\s(«"])\*([^*\s][^*\n]*?)\*(?=[\s.,;:!?)»]|$)/gm, "$1<i>$2</i>");
   }
   function add(text, who) {
     var d = document.createElement("div"); d.className = "nia-m " + (who === "user" ? "nia-me" : "nia-bot");
