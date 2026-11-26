@@ -9,9 +9,9 @@
   var ANON = "sb_publishable_EaXO2yUXd88X2sjI7MaTEg_IWaOnEml";
 
   var TX = {
-    fr: { hi: "Bonjour", space: "Mon espace", forms: "Mes formations", soft: "Mes téléchargements", out: "Se déconnecter", acct: "Mon compte" },
-    mg: { hi: "Salama", space: "Ny kaontiko", forms: "Ny fiofanako", soft: "Ny rindranasa nalaiko", out: "Hivoaka", acct: "Ny kaontiko" },
-    en: { hi: "Hello", space: "My account", forms: "My trainings", soft: "My downloads", out: "Sign out", acct: "My account" }
+    fr: { hi: "Bonjour", space: "Mon espace", forms: "Mes formations", soft: "Mes téléchargements", out: "Se déconnecter", acct: "Connexion / Inscription" },
+    mg: { hi: "Salama", space: "Ny kaontiko", forms: "Ny fiofanako", soft: "Ny rindranasa nalaiko", out: "Hivoaka", acct: "Hiditra / Hisoratra" },
+    en: { hi: "Hello", space: "My account", forms: "My trainings", soft: "My downloads", out: "Sign out", acct: "Sign in / Sign up" }
   };
   function lang() { var l = (document.documentElement.lang || "fr").slice(0, 2); return TX[l] ? l : "fr"; }
   function t(k) { return TX[lang()][k]; }

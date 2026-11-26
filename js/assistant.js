@@ -14,11 +14,11 @@
   function t(k) { return TXT[L()][k]; }
 
   var css = "" +
-    ".nia-btn{position:fixed;right:20px;bottom:92px;z-index:61;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#2a52d6,#0f2a78 70%);box-shadow:0 10px 26px rgba(15,42,120,.45),0 0 0 3px rgba(232,176,42,.55);transition:transform .2s}" +
+    ".nia-btn{position:fixed;right:20px;bottom:20px;z-index:61;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#2a52d6,#0f2a78 70%);box-shadow:0 10px 26px rgba(15,42,120,.45),0 0 0 3px rgba(232,176,42,.55);transition:transform .2s}" +
     ".nia-btn:hover{transform:scale(1.08)}.nia-btn svg{width:30px;height:30px}" +
     ".nia-btn::after{content:'';position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;background:#22c55e;border:2px solid #fff}" +
-    ".nia-tip{position:fixed;right:90px;bottom:104px;z-index:61;background:#0f2a78;color:#fff;font:600 14px/1.3 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:12px 12px 2px 12px;box-shadow:0 8px 22px rgba(15,42,120,.3);cursor:pointer;animation:niaIn .4s ease}" +
-    ".nia-panel{position:fixed;right:20px;bottom:92px;z-index:70;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100vh - 120px));display:none;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(12,22,51,.35);border:1px solid rgba(31,63,174,.15);font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;animation:niaIn .25s ease}" +
+    ".nia-tip{position:fixed;right:90px;bottom:32px;z-index:61;background:#0f2a78;color:#fff;font:600 14px/1.3 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:12px 12px 2px 12px;box-shadow:0 8px 22px rgba(15,42,120,.3);cursor:pointer;animation:niaIn .4s ease}" +
+    ".nia-panel{position:fixed;right:20px;bottom:20px;z-index:70;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100vh - 120px));display:none;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(12,22,51,.35);border:1px solid rgba(31,63,174,.15);font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;animation:niaIn .25s ease}" +
     ".nia-panel.open{display:flex}@keyframes niaIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}" +
     ".nia-head{display:flex;align-items:center;gap:12px;padding:14px 16px;color:#fff;background:radial-gradient(400px 160px at 100% 0,rgba(232,176,42,.25),transparent 60%),linear-gradient(135deg,#0a1d57,#0f2a78 60%,#1a3aa0)}" +
     ".nia-av{width:40px;height:40px;border-radius:12px;background:#fff url(img/logo-192.webp) center/80% no-repeat;flex:none;box-shadow:0 0 0 2px rgba(232,176,42,.6)}" +
