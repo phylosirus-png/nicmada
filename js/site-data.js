@@ -65,10 +65,10 @@
   }
 
   /* ---- Chargement ---- */
-  get("site_produits?select=nom,details,etat,prix,image_url,icone&publie=eq.true&order=ordre.asc,id.desc").then(function (rows) {
+  get("site_produits?select=nom,details,etat,prix,image_url,images,icone&publie=eq.true&order=ordre.asc,id.desc").then(function (rows) {
     if (typeof PRODUITS === "undefined") return;
     PRODUITS.splice.apply(PRODUITS, [0, PRODUITS.length].concat(rows.map(function (p) {
-      return { nom: p.nom, details: p.details, etat: p.etat, prix: p.prix, image: p.image_url, icone: p.icone };
+      return { nom: p.nom, details: p.details, etat: p.etat, prix: p.prix, image: p.image_url, images: p.images || [], icone: p.icone };
     })));
     renderBoutique(lg());
   }).catch(function () {});
