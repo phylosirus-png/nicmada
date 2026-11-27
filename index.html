@@ -207,6 +207,17 @@ footer{background:var(--ink);color:#c9d1e6;padding:56px 0 0;font-size:14.5px}
 .prod .pic img{width:100%;height:100%;object-fit:cover}
 .prod .st{position:absolute;top:12px;left:12px;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--blue);color:#fff}
 .prod .st.rec{background:var(--gold);color:var(--blue)}
+.prod .st.occ{background:#0f7a4d;color:#fff}
+.prod .gal{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain}
+.prod .gal::-webkit-scrollbar{display:none}
+.prod .gal img{flex:0 0 100%;scroll-snap-align:start;font-size:13px;color:var(--muted,#5b6785)}
+.prod .dots{position:absolute;bottom:9px;left:0;right:0;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.prod .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(12,22,51,.25)}
+.prod .dots i.on{background:#fff}
+.prod .gbtn{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.88);color:var(--blue);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 12px rgba(12,22,51,.2);opacity:0;transition:opacity .2s}
+.prod .gbtn.p{left:8px}.prod .gbtn.n{right:8px}
+.prod .pic:hover .gbtn,.prod .gbtn:focus-visible{opacity:1}
+@media (hover:none){.prod .gbtn{display:none}}
 .prod .bd{padding:20px;display:flex;flex-direction:column;flex:1}
 .prod h3{font-size:17.5px;margin-bottom:4px}
 .prod p{font-size:14.5px;flex:1}
@@ -705,22 +716,32 @@ function renderBoutique(l){
     `<a class="cat" target="_blank" rel="noopener" href="${wa(t("wa_cat")+" "+t(c.k))}"><span class="e">${c.e}</span>${esc(t(c.k))}</a>`).join("");
   document.getElementById("produits-bloc").hidden = PRODUITS.length === 0;
   document.querySelector(".shop-ask").hidden = PRODUITS.length > 0;
-  document.getElementById("produits").innerHTML = PRODUITS.map(p=>`
+  const ETAT={neuf:["st_neuf",""],comme_neuf:["st_comme_neuf","rec"],reco:["st_reco","rec"],bonne_occasion:["st_bonne_occasion","occ"],seconde_main:["st_seconde_main","occ"]};
+  document.getElementById("produits").innerHTML = PRODUITS.map(p=>{
+    const imgs=(p.images&&p.images.length?p.images:(p.image?[p.image]:[])).slice(0,3), et=ETAT[p.etat]||ETAT.neuf;
+    return `
     <div class="card prod">
-      <div class="pic">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.nom)}" loading="lazy">`:p.icone||"💻"}
-        <span class="st ${p.etat==="reco"?"rec":""}">${esc(t(p.etat==="reco"?"st_reco":"st_neuf"))}</span></div>
+      <div class="pic">${imgs.length?`<div class="gal">${imgs.map((u,i)=>`<img src="${esc(u)}" alt="${esc(p.nom)}${i?" ("+(i+1)+")":""}" loading="lazy">`).join("")}</div>${imgs.length>1?`<div class="dots">${imgs.map((_,i)=>`<i${i?"":' class="on"'}></i>`).join("")}</div><button type="button" class="gbtn p" aria-label="${esc(t("ph_prev"))}">‹</button><button type="button" class="gbtn n" aria-label="${esc(t("ph_next"))}">›</button>`:""}`:p.icone||"💻"}
+        <span class="st ${et[1]}">${esc(t(et[0]))}</span></div>
       <div class="bd">
         <h3>${esc(p.nom)}</h3>
         <p>${esc(p.details)}</p>
         <div class="price">${esc(p.prix||t("ask_price"))}</div>
         <a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(t("wa_prod")+" "+p.nom+" ("+p.details+")")}">${esc(t("order"))}</a>
       </div>
-    </div>`).join("");
+    </div>`;}).join("");
+  document.querySelectorAll("#produits .pic").forEach(pic=>{
+    const g=pic.querySelector(".gal"), dots=pic.querySelectorAll(".dots i"); if(!g||dots.length<2) return;
+    const idx=()=>Math.round(g.scrollLeft/g.clientWidth);
+    g.addEventListener("scroll",()=>{const k=idx(); dots.forEach((d,i)=>d.classList.toggle("on",i===k));},{passive:true});
+    const go=s=>{const k=(idx()+s+dots.length)%dots.length; g.scrollTo({left:k*g.clientWidth});};
+    pic.querySelector(".gbtn.p").onclick=()=>go(-1); pic.querySelector(".gbtn.n").onclick=()=>go(1);
+  });
 }
 
 const T = {
  fr:{c1:"Ordinateurs portables",c2:"PC de bureau",c3:"Accessoires",c4:"Pièces & composants",c5:"Imprimantes",c6:"Réseau & Wi-Fi",
-  st_neuf:"Neuf",st_reco:"Reconditionné",ask_price:"Prix sur demande",order:"💬 Commander",
+  st_neuf:"Neuf",st_reco:"Reconditionné",st_comme_neuf:"Comme neuf",st_bonne_occasion:"Bonne occasion",st_seconde_main:"2ᵉ main",ph_prev:"Photo précédente",ph_next:"Photo suivante",ask_price:"Prix sur demande",order:"💬 Commander",
   wa_cat:"Bonjour, je cherche :",wa_prod:"Bonjour, je suis intéressé(e) par :"},
  mg:{
   nav_shop:"Fivarotana",acct:"Hiditra / Hisoratra",s4_link:"Hisoratra anarana amin'ny fiofanana →",brand_act:"Informatika · Herinaratra · Fitsaboana · Mekanika",ft_links:"Rohy haingana",legal:"Fanamarihana ara-dalàna & tsiambaratelo",skip:"Mankany amin'ny votoaty",slogan:"« Ny traikefa no mitsara ny teoria ! »",hero_btn3:"🛒 Jereo ny fivarotana",
@@ -729,7 +750,7 @@ const T = {
   sh_text:"Vaovao na nohavaozina, zahana tsara ny fitaovana tsirairay alohan'ny hivarotana azy. Lazao izay tadiavinao, hitadiavanay ny modely mifanaraka amin'ny tetibolanao.",
   sh_now:"Misy ankehitriny",sh_ask:"Tsindrio ny sokajy iray hilazana aminay amin'ny WhatsApp izay tadiavinao : hanolotra anao ireo modely misy sy ny vidiny izahay.",tr1:"Fikojakojana aorian'ny fivarotana ao amin'ny atelier-nay",tr2:"Notsapaina sy nodiovin'ny teknisianina",tr3:"Efa misy Windows sy rindrambaiko",tr4:"Torohevitra mifanaraka amin'ny tetibolanao",
   c1:"Solosaina finday",c2:"Solosaina birao",c3:"Kojakoja",c4:"Singa sy kojakoja anatiny",c5:"Mpanonta",c6:"Tambajotra & Wi-Fi",
-  st_neuf:"Vaovao",st_reco:"Nohavaozina",ask_price:"Anontanio ny vidiny",order:"💬 Hanafatra",
+  st_neuf:"Vaovao",st_reco:"Nohavaozina",st_comme_neuf:"Toy ny vaovao",st_bonne_occasion:"Efa niasa, tsara toetra",st_seconde_main:"Efa niasa",ph_prev:"Sary teo aloha",ph_next:"Sary manaraka",ask_price:"Anontanio ny vidiny",order:"💬 Hanafatra",
   wa_cat:"Salama, mitady :",wa_prod:"Salama, liana amin'ity aho :",f_o6:"Fividianana solosaina / fitaovana",
   nav_services:"Tolotra",nav_soft:"Rindrambaiko sy fampidinana",nav_about:"Momba anay",nav_contact:"Fifandraisana",
   hero_title:"Ny traikefa no mitsara <em>ny teoria !</em>",
@@ -775,7 +796,7 @@ const T = {
   sh_text:"New or refurbished, every device is checked before sale. Tell us what you need and we'll find the right model for your budget.",
   sh_now:"Available now",sh_ask:"Click a category to tell us on WhatsApp what you are looking for: we will suggest the models in stock and their prices.",tr1:"After-sales service in our workshop",tr2:"Tested and cleaned by a technician",tr3:"Windows and software installed",tr4:"Advice tailored to your budget",
   c1:"Laptops",c2:"Desktop PCs",c3:"Accessories",c4:"Parts & components",c5:"Printers",c6:"Network & Wi-Fi",
-  st_neuf:"New",st_reco:"Refurbished",ask_price:"Price on request",order:"💬 Order",
+  st_neuf:"New",st_reco:"Refurbished",st_comme_neuf:"Like new",st_bonne_occasion:"Good condition (used)",st_seconde_main:"Second-hand",ph_prev:"Previous photo",ph_next:"Next photo",ask_price:"Price on request",order:"💬 Order",
   wa_cat:"Hello, I'm looking for:",wa_prod:"Hello, I'm interested in:",f_o6:"Buy a computer / hardware",
   nav_services:"Services",nav_soft:"Software & downloads",nav_about:"About",nav_contact:"Contact",
   hero_title:"Experience <em>judges theory!</em>",
