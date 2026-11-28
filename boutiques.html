@@ -78,13 +78,14 @@ h2.sec{font-size:22px;margin:8px 0 14px}
 .seller{font-size:13.5px;color:var(--muted)}.seller a{font-weight:700;text-decoration:none}
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .acts .btn{padding:9px 14px;font-size:14px;flex:1}
-.report{background:none;border:0;color:var(--muted);font-size:12.5px;text-decoration:underline;cursor:pointer;align-self:flex-start;padding:0;margin-top:4px}
+.report{background:none;border:0;color:var(--muted);font-size:12.5px;text-decoration:underline;cursor:pointer;padding:0}
+.links{display:flex;justify-content:space-between;gap:10px;margin-top:4px}.sharep{background:none;border:0;color:var(--blue-2);font-size:13px;font-weight:700;cursor:pointer;padding:0}
 .shophead{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
 .shophead .lg{width:84px;height:84px;border-radius:16px;background:var(--soft);display:grid;place-items:center;overflow:hidden;font-size:38px;flex:none}
 .shophead .lg img{width:100%;height:100%;object-fit:cover}
 .shophead h2{font-size:26px;color:var(--blue)}
 .shophead p{color:var(--muted);white-space:pre-line;max-width:640px}
-.shophead .acts{flex:0 0 auto;margin-left:auto}
+.shophead .acts{flex:0 0 auto;margin-left:auto}.shophead .acts .btn{flex:none}
 .empty{color:var(--muted);text-align:center;padding:30px;border:1.5px dashed var(--line);border-radius:14px;background:#fff}
 .hidden{display:none!important}
 footer{text-align:center;color:var(--muted);font-size:13.5px;padding:24px 0 40px}
@@ -110,7 +111,7 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:24px 0 40px
   <div class="wrap">
     <h1 data-t="title">Boutiques des vendeurs</h1>
     <p data-t="sub">Matériel informatique et technique vendu par des vendeurs dont l'identité a été vérifiée par N.I.C Mada. Contactez le vendeur directement sur WhatsApp.</p>
-    <div class="cta"><a class="btn btn-gold" href="compte.html#boutique" data-t="sell">🏪 Vendre sur nicmada.com</a><a class="btn btn-ghost" href="./#boutique" data-t="nic_shop">🛒 La boutique N.I.C Mada</a></div>
+    <div class="cta"><a class="btn btn-gold" href="compte.html#boutique" data-t="sell">🏪 Vendre sur nicmada.com</a><a class="btn btn-ghost" href="./#boutique" data-t="nic_shop">🛒 La boutique N.I.C Mada</a><button type="button" class="btn btn-ghost" id="share-page" data-t="share">📤 Partager</button></div>
   </div>
 </section>
 
@@ -133,6 +134,7 @@ footer{text-align:center;color:var(--muted);font-size:13.5px;padding:24px 0 40px
 <footer>© N.I.C Mada · <a href="mentions-legales.html#vendeurs" data-t="terms">Conditions des vendeurs</a> · <a href="./" data-t="home">nicmada.com</a></footer>
 
 <script src="js/config.js"></script>
+<script src="js/partage.js"></script>
 <script>
 (function(){
 "use strict";
@@ -144,6 +146,7 @@ const T = {
     contact:"💬 Contacter",call:"📞 Appeler",by:"Vendu par",ask_price:"Prix sur demande",report:"Signaler cette annonce",all_shops:"← Toutes les boutiques",
     not_found:"Cette boutique n'existe pas ou n'est plus disponible.",wa_msg:"Bonjour, je suis intéressé(e) par « %s » vu sur nicmada.com. Est-il toujours disponible ?",
     wa_shop:"Bonjour, j'ai vu votre boutique « %s » sur nicmada.com.",wa_report:"Bonjour N.I.C Mada, je souhaite signaler l'annonce n°%s (« %s ») sur la page des boutiques.",
+    share:"📤 Partager",sh_txt:"Découvrez la boutique « %s » sur nicmada.com : vendeur vérifié par N.I.C Mada.",pr_txt:"À vendre : %s, chez « %s » sur nicmada.com (vendeur vérifié par N.I.C Mada).",pg_txt:"Du matériel informatique et technique vendu par des vendeurs vérifiés par N.I.C Mada, à Madagascar.",
     terms:"Conditions des vendeurs",home:"nicmada.com",ph_prev:"Photo précédente",ph_next:"Photo suivante",err:"Impossible de charger les produits. Vérifiez votre connexion et réessayez.",
     cat_ordinateurs:"Ordinateurs",cat_composants:"Composants & pièces",cat_accessoires:"Accessoires & périphériques",cat_imprimantes:"Imprimantes & consommables",cat_reseau:"Réseau & Internet",cat_telephonie:"Téléphonie",cat_electricite:"Électricité",cat_energie:"Énergie",cat_medical:"Matériel médical",cat_autre:"Autre",
     et_neuf:"Neuf",et_comme_neuf:"Comme neuf",et_reco:"Reconditionné",et_bonne_occasion:"Bonne occasion",et_seconde_main:"2ᵉ main"},
@@ -154,6 +157,7 @@ const T = {
     contact:"💬 Hifandray",call:"📞 Hiantso",by:"Amidin'i",ask_price:"Anontanio ny vidiny",report:"Hitatitra ity dokam-barotra ity",all_shops:"← Fivarotana rehetra",
     not_found:"Tsy misy na tsy azo jerena intsony ity fivarotana ity.",wa_msg:"Salama, liana amin'ny « %s » hitako tao amin'ny nicmada.com aho. Mbola misy ve ?",
     wa_shop:"Salama, nahita ny fivarotanao « %s » tao amin'ny nicmada.com aho.",wa_report:"Salama N.I.C Mada, te hitatitra ny dokam-barotra laharana %s (« %s ») aho.",
+    share:"📤 Hizara",sh_txt:"Jereo ny fivarotana « %s » ao amin'ny nicmada.com : mpivarotra voamarin'ny N.I.C Mada.",pr_txt:"Amidy : %s, ao amin'ny « %s » ao amin'ny nicmada.com (mpivarotra voamarin'ny N.I.C Mada).",pg_txt:"Fitaovana informatika sy teknika amidin'ny mpivarotra voamarin'ny N.I.C Mada, eto Madagasikara.",
     terms:"Fepetran'ny mpivarotra",home:"nicmada.com",ph_prev:"Sary teo aloha",ph_next:"Sary manaraka",err:"Tsy voaaka ny entana. Jereo ny fifandraisanao ary andramo indray.",
     cat_ordinateurs:"Solosaina",cat_composants:"Singa sy pièces",cat_accessoires:"Kojakoja",cat_imprimantes:"Mpanonta sy ranomainty",cat_reseau:"Tambajotra sy Internet",cat_telephonie:"Finday",cat_electricite:"Herinaratra",cat_energie:"Angovo",cat_medical:"Fitaovana ara-pahasalamana",cat_autre:"Hafa",
     et_neuf:"Vaovao",et_comme_neuf:"Toy ny vaovao",et_reco:"Nohavaozina",et_bonne_occasion:"Efa niasa, tsara toetra",et_seconde_main:"Efa niasa"},
@@ -164,6 +168,7 @@ const T = {
     contact:"💬 Contact",call:"📞 Call",by:"Sold by",ask_price:"Price on request",report:"Report this listing",all_shops:"← All shops",
     not_found:"This shop doesn't exist or is no longer available.",wa_msg:"Hello, I'm interested in “%s” seen on nicmada.com. Is it still available?",
     wa_shop:"Hello, I saw your shop “%s” on nicmada.com.",wa_report:"Hello N.I.C Mada, I'd like to report listing #%s (“%s”) on the seller shops page.",
+    share:"📤 Share",sh_txt:"Check out the shop “%s” on nicmada.com — seller verified by N.I.C Mada.",pr_txt:"For sale: %s, at “%s” on nicmada.com (seller verified by N.I.C Mada).",pg_txt:"IT and technical equipment sold by sellers verified by N.I.C Mada, in Madagascar.",
     terms:"Seller terms",home:"nicmada.com",ph_prev:"Previous photo",ph_next:"Next photo",err:"Couldn't load products. Check your connection and try again.",
     cat_ordinateurs:"Computers",cat_composants:"Components & parts",cat_accessoires:"Accessories & peripherals",cat_imprimantes:"Printers & supplies",cat_reseau:"Networking & Internet",cat_telephonie:"Phones",cat_electricite:"Electrical",cat_energie:"Energy",cat_medical:"Medical equipment",cat_autre:"Other",
     et_neuf:"New",et_comme_neuf:"Like new",et_reco:"Refurbished",et_bonne_occasion:"Good condition (used)",et_seconde_main:"Second-hand"}
@@ -220,7 +225,7 @@ function card(p){
       ${SLUG ? "" : `<div class="seller">${esc(t("by"))} <a href="?b=${encodeURIComponent(p.boutique_slug)}">${esc(p.boutique_nom)}</a>${p.boutique_ville ? " · " + esc(p.boutique_ville) : ""}</div>`}
       <div class="acts">${wa ? `<a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(fmt(t("wa_msg"), p.nom))}">${esc(t("contact"))}</a>` : ""}
         ${tel ? `<a class="btn btn-line" href="tel:${esc(tel)}">${esc(t("call"))}</a>` : ""}</div>
-      <button type="button" class="report" data-rep="${p.id}">${esc(t("report"))}</button></div>
+      <div class="links"><button type="button" class="sharep" data-sp="${p.id}">${esc(t("share"))}</button><button type="button" class="report" data-rep="${p.id}">${esc(t("report"))}</button></div></div>
   </article>`;
 }
 
@@ -246,7 +251,8 @@ function render(){
       $("v-shop").innerHTML = `<p style="margin-bottom:12px"><a href="boutiques.html">${esc(t("all_shops"))}</a></p>
         <div class="shophead"><div class="lg">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="">` : "🏪"}</div>
           <div><h2>${esc(s.nom)}</h2><span class="ver">${esc(t("verified"))}</span>${s.ville ? ` <small style="color:var(--muted)">· 📍 ${esc(s.ville)}</small>` : ""}${s.description ? `<p style="margin-top:8px">${esc(s.description)}</p>` : ""}</div>
-          <div class="acts">${wa ? `<a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(fmt(t("wa_shop"), s.nom))}">${esc(t("contact"))}</a>` : ""}${tel ? `<a class="btn btn-line" href="tel:${esc(tel)}">${esc(t("call"))}</a>` : ""}</div></div>`;
+          <div class="acts">${wa ? `<a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(fmt(t("wa_shop"), s.nom))}">${esc(t("contact"))}</a>` : ""}${tel ? `<a class="btn btn-line" href="tel:${esc(tel)}">${esc(t("call"))}</a>` : ""}<button type="button" class="btn btn-line" id="share-shop">${esc(t("share"))}</button></div></div>`;
+      $("share-shop").onclick = () => partager("https://nicmada.com/boutiques.html?b=" + encodeURIComponent(s.slug), s.nom, fmt(t("sh_txt"), s.nom));
     }
   } else {
     $("shops-bloc").classList.toggle("hidden", !S.shops.length);
@@ -269,12 +275,18 @@ function renderGrid(){
     const go = s => g.scrollTo({ left: ((idx() + s + dots.length) % dots.length) * g.clientWidth });
     pic.querySelector(".gbtn.p").onclick = () => go(-1); pic.querySelector(".gbtn.n").onclick = () => go(1);
   });
+  document.querySelectorAll("[data-sp]").forEach(b => b.onclick = () => {
+    const p = S.prods.find(x => String(x.id) === b.dataset.sp); if (!p) return;
+    partager("https://nicmada.com/boutiques.html?b=" + encodeURIComponent(p.boutique_slug || (S.shop && S.shop.slug) || ""), p.nom, fmt(t("pr_txt"), p.nom + (p.prix ? " (" + p.prix + ")" : ""), p.boutique_nom || (S.shop && S.shop.nom) || ""));
+  });
   document.querySelectorAll("[data-rep]").forEach(b => b.onclick = () => {
     const p = S.prods.find(x => String(x.id) === b.dataset.rep);
     window.open(`https://wa.me/${NIC_WA}?text=${encodeURIComponent(fmt(t("wa_report"), b.dataset.rep, p ? p.nom : ""))}`, "_blank", "noopener");
   });
 }
 
+function partager(url, title, text){ if (window.NicPartage) NicPartage.open({ url, title, text }); }
+$("share-page").onclick = () => partager("https://nicmada.com/boutiques.html", t("title") + " — N.I.C Mada", t("pg_txt"));
 $("q").oninput = renderGrid; $("cat").onchange = renderGrid;
 document.querySelectorAll(".lang button").forEach(b => b.onclick = () => { LANG = b.dataset.lang; try { localStorage.setItem("lang", LANG); } catch (e) {} render(); });
 render(); load();
