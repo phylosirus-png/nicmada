@@ -108,6 +108,9 @@ h1,h2,h3,.btn,.stat b,.panel b,.cat,.price,.kicker,.tag{font-family:var(--brand)
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes bl{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.hero-art *{animation:none!important}}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+@media (min-width:480px){.tags{display:grid;grid-template-columns:repeat(2,max-content);justify-items:start}}
+.tags span{background:rgba(232,176,42,.15);color:var(--gold);border:1px solid rgba(232,176,42,.4);padding:4px 12px;border-radius:999px;font-family:var(--brand);font-weight:700;font-size:13.5px;white-space:nowrap}
 .tag{display:inline-block;background:rgba(232,176,42,.15);color:var(--gold);border:1px solid rgba(232,176,42,.4);padding:5px 14px;border-radius:999px;font-size:14px;font-weight:700;margin-bottom:22px}
 .hero h1{font-size:clamp(32px,5vw,54px);line-height:1.12;max-width:780px;margin-bottom:20px}
 .hero h1 em{font-style:normal;color:var(--gold);white-space:nowrap}
@@ -386,7 +389,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
   <img class="hero-mark" src="img/logo.webp" alt="" aria-hidden="true" width="520" height="520">
   <div class="wrap">
    <div class="hero-text">
-    <span class="tag" data-i18n="hero_tag">💻&nbsp;Informatique&nbsp;· ⚡&nbsp;Électricité&nbsp;&&nbsp;énergie&nbsp;· 🩺&nbsp;Biomédical&nbsp;· 🚗&nbsp;Mécanique&nbsp;auto</span>
+    <div class="tags"><span data-i18n="tg1">💻 Informatique</span><span data-i18n="tg2">⚡ Électricité & énergie</span><span data-i18n="tg3">🩺 Biomédical</span><span data-i18n="tg4">🚗 Mécanique auto</span></div>
     <h1 data-i18n-html="hero_title">L'expérience juge <em>la théorie&nbsp;!</em></h1>
     <p data-i18n="hero_text">Vente et réparation d'ordinateurs depuis 2009, logiciels professionnels et formations. Installation électrique du bâtiment, groupes électrogènes, maintenance biomédicale et mécanique automobile.</p>
     <div class="btns">
@@ -750,7 +753,7 @@ const T = {
   wa_cat:"Bonjour, je cherche :",wa_prod:"Bonjour, je suis intéressé(e) par :"},
  mg:{
   nav_shop:"Fivarotana",acct:"Hiditra / Hisoratra",s4_link:"Hisoratra anarana amin'ny fiofanana →",brand_act:"Informatika · Herinaratra · Fitsaboana · Mekanika",ft_links:"Rohy haingana",legal:"Fanamarihana ara-dalàna & tsiambaratelo",skip:"Mankany amin'ny votoaty",slogan:"« Ny traikefa no mitsara ny teoria ! »",hero_btn3:"🛒 Jereo ny fivarotana",share_btn:"📤 Hizara",share_site:"📤 Hizara ny tranonkala",
-  hero_tag:"💻\u00a0Informatika\u00a0· ⚡\u00a0Herinaratra\u00a0&\u00a0angovo\u00a0· 🩺\u00a0Fitaovana\u00a0ara-pitsaboana\u00a0· 🚗\u00a0Mekanika\u00a0fiara",
+  tg1:"💻 Informatika",tg2:"⚡ Herinaratra & angovo",tg3:"🩺 Fitaovana ara-pitsaboana",tg4:"🚗 Mekanika fiara",hero_tag:"💻\u00a0Informatika\u00a0· ⚡\u00a0Herinaratra\u00a0&\u00a0angovo\u00a0· 🩺\u00a0Fitaovana\u00a0ara-pitsaboana\u00a0· 🚗\u00a0Mekanika\u00a0fiara",
   sh_kicker:"Fivarotana informatika",sh_title:"Solosaina sy fitaovana, notsapain'ny teknisianina",
   sh_text:"Vaovao na nohavaozina, zahana tsara ny fitaovana tsirairay alohan'ny hivarotana azy. Lazao izay tadiavinao, hitadiavanay ny modely mifanaraka amin'ny tetibolanao.",
   sh_now:"Misy ankehitriny",sh_ask:"Tsindrio ny sokajy iray hilazana aminay amin'ny WhatsApp izay tadiavinao : hanolotra anao ireo modely misy sy ny vidiny izahay.",tr1:"Fikojakojana aorian'ny fivarotana ao amin'ny atelier-nay",tr2:"Notsapaina sy nodiovin'ny teknisianina",tr3:"Efa misy Windows sy rindrambaiko",tr4:"Torohevitra mifanaraka amin'ny tetibolanao",mk_t:"🏪 Fivarotan'ny mpivarotra voamarina",mk_s:"Fitaovana informatika sy teknika atolotry ny mpivarotra nohamarinin'ny N.I.C Mada ny mombamomba azy. Mpivarotra koa ianao ? Sokafy ny fivarotanao.",mk_b1:"Hijery ny fivarotana",mk_b2:"Hanokatra ny fivarotako",
@@ -796,7 +799,7 @@ const T = {
  },
  en:{
   nav_shop:"Shop",acct:"Sign in / Sign up",s4_link:"Sign up for a training →",brand_act:"IT · Electrical · Biomedical · Mechanics",ft_links:"Quick links",legal:"Legal notice & privacy",skip:"Skip to content",slogan:"« Experience judges theory! »",hero_btn3:"🛒 Visit the shop",share_btn:"📤 Share",share_site:"📤 Share this site",
-  hero_tag:"💻\u00a0IT\u00a0· ⚡\u00a0Electrical\u00a0&\u00a0power\u00a0· 🩺\u00a0Biomedical\u00a0· 🚗\u00a0Auto\u00a0mechanics",
+  tg1:"💻 IT",tg2:"⚡ Electrical & power",tg3:"🩺 Biomedical",tg4:"🚗 Auto mechanics",hero_tag:"💻\u00a0IT\u00a0· ⚡\u00a0Electrical\u00a0&\u00a0power\u00a0· 🩺\u00a0Biomedical\u00a0· 🚗\u00a0Auto\u00a0mechanics",
   sh_kicker:"IT shop",sh_title:"Computers and hardware, tested by a technician",
   sh_text:"New or refurbished, every device is checked before sale. Tell us what you need and we'll find the right model for your budget.",
   sh_now:"Available now",sh_ask:"Click a category to tell us on WhatsApp what you are looking for: we will suggest the models in stock and their prices.",tr1:"After-sales service in our workshop",tr2:"Tested and cleaned by a technician",tr3:"Windows and software installed",tr4:"Advice tailored to your budget",mk_t:"🏪 Verified seller shops",mk_s:"IT and technical equipment offered by sellers whose identity N.I.C Mada has verified. Selling too? Open your shop.",mk_b1:"Browse shops",mk_b2:"Open my shop",
