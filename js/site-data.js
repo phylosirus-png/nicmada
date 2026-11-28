@@ -65,13 +65,25 @@
   }
 
   /* ---- Chargement ---- */
-  get("site_produits?select=nom,details,etat,prix,image_url,images,icone&publie=eq.true&order=ordre.asc,id.desc").then(function (rows) {
+  /* Boutique : produits N.I.C Mada d'abord, puis ceux des vendeurs vérifiés, dans la même liste */
+  var ICONES = { ordinateurs: "💻", composants: "💾", accessoires: "🖱️", imprimantes: "🖨️", reseau: "📶", telephonie: "📱", electricite: "⚡", energie: "🔋", medical: "🩺", autre: "📦" };
+  Promise.all([
+    get("site_produits?select=nom,details,etat,prix,image_url,images,icone&publie=eq.true&order=ordre.asc,id.desc").catch(function () { return null; }),
+    get("produits_vendeurs?select=nom,details,etat,prix,images,categorie,boutique_slug,boutique_nom,boutique_ville,boutique_whatsapp,boutique_telephone&order=cree_le.desc&limit=60").catch(function () { return []; })
+  ]).then(function (r) {
     if (typeof PRODUITS === "undefined") return;
-    PRODUITS.splice.apply(PRODUITS, [0, PRODUITS.length].concat(rows.map(function (p) {
+    var nic = r[0], vend = r[1] || [];
+    if (nic === null && !vend.length) return;
+    var liste = nic === null ? PRODUITS.slice() : nic.map(function (p) {
       return { nom: p.nom, details: p.details, etat: p.etat, prix: p.prix, image: p.image_url, images: p.images || [], icone: p.icone };
-    })));
+    });
+    vend.forEach(function (p) {
+      liste.push({ nom: p.nom, details: p.details, etat: p.etat, prix: p.prix, images: p.images || [], icone: ICONES[p.categorie] || "📦",
+        v: { nom: p.boutique_nom, slug: p.boutique_slug, ville: p.boutique_ville, whatsapp: p.boutique_whatsapp, telephone: p.boutique_telephone } });
+    });
+    PRODUITS.splice.apply(PRODUITS, [0, PRODUITS.length].concat(liste));
     renderBoutique(lg());
-  }).catch(function () {});
+  });
 
   get("logiciels?select=nom,description,description_mg,description_en,plateforme,lien_externe,logo_url,lien_info,lien_play&actif=eq.true&order=ordre.asc,id.asc")
     .then(function (rows) { DATA.logiciels = rows; renderLogiciels(); }).catch(function () {});
