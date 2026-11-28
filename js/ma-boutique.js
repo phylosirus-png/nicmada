@@ -10,8 +10,8 @@
       sh_intro_t: "Vendez votre matériel sur nicmada.com",
       sh_intro_p: "Ouvrez gratuitement votre boutique : ordinateurs, pièces, accessoires, imprimantes, réseau, électricité, énergie, matériel médical… Les acheteurs vous contactent directement par WhatsApp ou par téléphone.",
       sh_intro_l1: "Votre identité est vérifiée par N.I.C Mada avant la mise en ligne : cela rassure les acheteurs.",
-      sh_intro_l2: "Particulier : CIN (recto et verso) + une photo de vous tenant votre CIN.",
-      sh_intro_l3: "Entreprise : en plus, NIF, STAT et registre du commerce (RCS).",
+      sh_intro_l2: "Particulier : CIN (recto et verso), une photo de vous tenant votre CIN et un certificat de résidence de moins de 3 mois.",
+      sh_intro_l3: "Entreprise : CIN (recto et verso) et photo du représentant légal tenant sa CIN, plus NIF, STAT et registre du commerce (RCS).",
       sh_intro_l4: "Vos pièces restent privées : seul N.I.C Mada peut les consulter, elles ne sont jamais publiées.",
       sh_open: "Ouvrir ma boutique",
       sh_step: "Étape 1 : enregistrez ces informations. Étape 2 : ajoutez vos pièces justificatives, puis envoyez la boutique pour vérification.",
@@ -24,6 +24,8 @@
       sh_docs_t: "Pièces justificatives", sh_docs_p: "Photo nette et lisible (JPG ou PNG) ou PDF, 6 Mo maximum par pièce.",
       doc_cin_recto: "CIN — recto", doc_cin_verso: "CIN — verso", doc_selfie: "Photo de vous tenant votre CIN",
       doc_nif: "Carte ou attestation NIF", doc_stat: "Carte statistique (STAT)", doc_rcs: "Extrait du registre du commerce (RCS)",
+      doc_residence: "Certificat de résidence (moins de 3 mois)",
+      docr_cin_recto: "CIN du représentant légal — recto", docr_cin_verso: "CIN du représentant légal — verso", docr_selfie: "Photo du représentant tenant sa CIN",
       doc_ok: "✓ Reçue", doc_missing: "À fournir", doc_replace: "Remplacer", doc_send: "Envoyer",
       sh_certify: "Je certifie que ces informations et pièces sont exactes et j'accepte les conditions des vendeurs.",
       sh_terms: "Lire les conditions",
@@ -54,8 +56,8 @@
       sh_intro_t: "Amidio eto amin'ny nicmada.com ny fitaovanao",
       sh_intro_p: "Sokafy maimaim-poana ny fivarotanao : solosaina, singa, kojakoja, mpanonta, tambajotra, herinaratra, angovo, fitaovana ara-pahasalamana… Mifandray mivantana aminao amin'ny WhatsApp na antso ny mpividy.",
       sh_intro_l1: "Hamarinin'ny N.I.C Mada aloha ny mombamomba anao vao aseho : mampatoky ny mpividy izany.",
-      sh_intro_l2: "Olon-tsotra : CIN (aloha sy aoriana) + sarinao mitazona ny CIN-nao.",
-      sh_intro_l3: "Orinasa : ampiana NIF, STAT ary RCS.",
+      sh_intro_l2: "Olon-tsotra : CIN (aloha sy aoriana), sarinao mitazona ny CIN-nao ary taratasy fanamarinana fonenana tsy mihoatra ny 3 volana.",
+      sh_intro_l3: "Orinasa : CIN (aloha sy aoriana) sy sarin'ny solontena ara-dalàna mitazona ny CIN-ny, miampy NIF, STAT ary RCS.",
       sh_intro_l4: "Tsiambaratelo ny taratasinao : ny N.I.C Mada ihany no mahita azy, tsy aseho mihitsy.",
       sh_open: "Hanokatra ny fivarotako",
       sh_step: "Dingana 1 : raiketo ireto mombamomba ireto. Dingana 2 : ampidiro ny taratasy fanamarinana, avy eo alefaso hojerena ny fivarotana.",
@@ -68,6 +70,8 @@
       sh_docs_t: "Taratasy fanamarinana", sh_docs_p: "Sary mazava (JPG na PNG) na PDF, 6 Mo farafahabetsany isaky ny taratasy.",
       doc_cin_recto: "CIN — aloha", doc_cin_verso: "CIN — aoriana", doc_selfie: "Sarinao mitazona ny CIN",
       doc_nif: "Karatra na fanamarinana NIF", doc_stat: "Karatra STAT", doc_rcs: "Kopian'ny RCS",
+      doc_residence: "Taratasy fanamarinana fonenana (tsy mihoatra ny 3 volana)",
+      docr_cin_recto: "CIN-n'ny solontena — aloha", docr_cin_verso: "CIN-n'ny solontena — aoriana", docr_selfie: "Sarin'ny solontena mitazona ny CIN-ny",
       doc_ok: "✓ Voaray", doc_missing: "Tsy mbola misy", doc_replace: "Ovaina", doc_send: "Alefa",
       sh_certify: "Manamarina aho fa marina ireo mombamomba sy taratasy ireo ary manaiky ny fepetran'ny mpivarotra.",
       sh_terms: "Vakio ny fepetra",
@@ -98,8 +102,8 @@
       sh_intro_t: "Sell your equipment on nicmada.com",
       sh_intro_p: "Open your shop for free: computers, parts, accessories, printers, networking, electrical, energy, medical equipment… Buyers contact you directly on WhatsApp or by phone.",
       sh_intro_l1: "Your identity is checked by N.I.C Mada before going live: buyers trust verified sellers.",
-      sh_intro_l2: "Individual: ID card (front and back) + a photo of you holding your ID card.",
-      sh_intro_l3: "Company: in addition, NIF, STAT and trade register (RCS).",
+      sh_intro_l2: "Individual: ID card (front and back), a photo of you holding your ID card and a certificate of residence less than 3 months old.",
+      sh_intro_l3: "Company: ID card (front and back) and photo of the legal representative holding it, plus NIF, STAT and trade register (RCS).",
       sh_intro_l4: "Your documents stay private: only N.I.C Mada can see them, they are never published.",
       sh_open: "Open my shop",
       sh_step: "Step 1: save these details. Step 2: upload your supporting documents, then send the shop for verification.",
@@ -112,6 +116,8 @@
       sh_docs_t: "Supporting documents", sh_docs_p: "Clear, readable photo (JPG or PNG) or PDF, 6 MB max per document.",
       doc_cin_recto: "ID card — front", doc_cin_verso: "ID card — back", doc_selfie: "Photo of you holding your ID card",
       doc_nif: "NIF card or certificate", doc_stat: "Statistical card (STAT)", doc_rcs: "Trade register extract (RCS)",
+      doc_residence: "Certificate of residence (less than 3 months old)",
+      docr_cin_recto: "Legal representative's ID card — front", docr_cin_verso: "Legal representative's ID card — back", docr_selfie: "Photo of the representative holding their ID card",
       doc_ok: "✓ Received", doc_missing: "Required", doc_replace: "Replace", doc_send: "Upload",
       sh_certify: "I certify that this information and these documents are accurate and I accept the seller terms.",
       sh_terms: "Read the terms",
@@ -143,12 +149,13 @@
   const BUCKET_URL = "https://pisjdbpfsxidagjnfxxm.supabase.co/storage/v1/object/public/vendeurs/";
   const CATS = ["ordinateurs","composants","accessoires","imprimantes","reseau","telephonie","electricite","energie","medical","autre"];
   const ETATS = ["neuf","comme_neuf","reco","bonne_occasion","seconde_main"];
-  const DOCS = { particulier: ["cin_recto","cin_verso","selfie"], entreprise: ["cin_recto","cin_verso","selfie","nif","stat","rcs"] };
+  const DOCS = { particulier: ["cin_recto","cin_verso","selfie","residence"], entreprise: ["cin_recto","cin_verso","selfie","nif","stat","rcs"] };
   const S = { b: null, docs: [], prods: [], open: false, edit: null, loaded: false };
   const $ = id => document.getElementById(id);
   const box = () => $("p-shop");
   const uid = () => state.user && state.user.id;
   const val = id => ($(id) && $(id).value || "").trim();
+  const docNom = (k, type) => (type === "entreprise" && T.fr["docr_" + k]) ? t("docr_" + k) : t("doc_" + k);
   const editable = () => !S.b || S.b.statut === "brouillon" || S.b.statut === "refusee";
 
   /* ---------------- Fichiers ---------------- */
@@ -244,7 +251,7 @@
 
   function erreurBoutique(e){
     const m = (e && e.message) || "";
-    if (m.startsWith("pieces_manquantes:")) return t("sh_missing") + " " + m.split(":")[1].split(",").map(k => t("doc_" + k)).join(", ") + ".";
+    if (m.startsWith("pieces_manquantes:")) return t("sh_missing") + " " + m.split(":")[1].split(",").map(k => docNom(k, S.b && S.b.type)).join(", ") + ".";
     if (m.includes("infos_manquantes")) return t("sh_need_fields");
     if (m.includes("infos_legales_verrouillees")) return t("sh_locked");
     if (m.includes("limite_produits")) return t("pr_limit");
@@ -307,8 +314,8 @@
       const req = DOCS[type];
       h += `<h4 class="shop-sub">${esc(t("sh_docs_t"))}</h4><p class="hint">${esc(t("sh_docs_p"))}</p><div class="docs">` + req.map(k => {
         const d = S.docs.find(x => x.type === k);
-        return `<div class="doc"><div><b>${esc(t("doc_" + k))}</b> <span class="pill ${d ? "p-ok" : "p-wait"}">${esc(d ? t("doc_ok") : t("doc_missing"))}</span></div>
-          <input type="file" accept="image/*,application/pdf" data-doc="${k}" aria-label="${esc(t("doc_" + k))}"></div>`;
+        return `<div class="doc"><div><b>${esc(docNom(k, type))}</b> <span class="pill ${d ? "p-ok" : "p-wait"}">${esc(d ? t("doc_ok") : t("doc_missing"))}</span></div>
+          <input type="file" accept="image/*,application/pdf" data-doc="${k}" aria-label="${esc(docNom(k, type))}"></div>`;
       }).join("") + `</div>
         <label class="check"><input type="checkbox" id="sh-cert"> <span>${esc(t("sh_certify"))} <a href="mentions-legales.html#vendeurs" target="_blank" rel="noopener">${esc(t("sh_terms"))}</a></span></label>`;
     }
