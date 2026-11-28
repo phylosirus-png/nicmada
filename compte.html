@@ -64,6 +64,11 @@ input:focus,textarea:focus{border-color:var(--blue-2);background:#fff;outline:no
 .msg.ok{background:#e6f6ec;color:var(--ok)}
 .msg.err{background:#fdecea;color:var(--err)}
 .msg.info{background:#eaf0ff;color:var(--blue)}
+.note{border-radius:12px;padding:14px 16px;margin-bottom:14px;border:1px solid;display:flex;gap:12px;align-items:flex-start}
+.note.warn,.note.susp{background:#fff4f2;border-color:#f5c2bb;color:#7a1d12}
+.note.info{background:#eef3ff;border-color:#c9d6fb;color:var(--blue)}
+.note b{display:block;margin-bottom:4px}.note p{margin:0;white-space:pre-line}.note small{display:block;margin-top:6px;opacity:.75}
+.note .btn{margin-left:auto;flex:none;padding:8px 14px;font-size:14px}
 
 .hello{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
 .hello h2{font-size:24px}
@@ -198,6 +203,7 @@ dialog h3{margin-bottom:6px}
       <button type="button" class="btn btn-line" id="b-logout" data-t="logout">Se déconnecter</button>
     </div>
     <div id="m-dash" class="msg" role="alert"></div>
+    <div id="m-notes" aria-live="polite"></div>
     <div class="dtabs" role="tablist">
       <button type="button" class="dtab on" data-panel="p-soft" data-t="tab_soft">💻 Mes logiciels</button>
       <button type="button" class="dtab" data-panel="p-form" data-t="tab_form">🎓 Formations</button>
@@ -264,7 +270,7 @@ const T = {
   e_login:"E-mail ou mot de passe incorrect.",e_confirm:"Confirmez d'abord votre adresse : ouvrez le lien reçu par e-mail.",
   e_exists:"Un compte existe déjà avec cette adresse. Connectez-vous ou utilisez « Mot de passe oublié ».",
   e_rate:"Trop de tentatives. Patientez quelques minutes puis réessayez.",e_net:"Connexion impossible. Vérifiez votre Internet et réessayez.",
-  e_generic:"Une erreur est survenue. Réessayez ou contactez-nous sur WhatsApp.",e_same:"Ce mot de passe est déjà votre mot de passe actuel. Choisissez-en un différent.",e_weak:"Mot de passe trop facile à deviner. Mélangez lettres, chiffres et un symbole.",e_full:"Désolé, cette formation est complète.",e_unavail:"Cette formation n'est plus disponible.",
+  e_generic:"Une erreur est survenue. Réessayez ou contactez-nous sur WhatsApp.",e_banned:"Votre compte est suspendu. Pour en savoir plus, contactez N.I.C Mada sur WhatsApp au 032 02 367 02.",note_warn:"Avertissement de N.I.C Mada",note_susp:"Votre compte a été suspendu",note_info:"Message de N.I.C Mada",note_ok:"J'ai compris",e_same:"Ce mot de passe est déjà votre mot de passe actuel. Choisissez-en un différent.",e_weak:"Mot de passe trop facile à deviner. Mélangez lettres, chiffres et un symbole.",e_full:"Désolé, cette formation est complète.",e_unavail:"Cette formation n'est plus disponible.",
   ok_signup_mail:"Compte créé ! Ouvrez l'e-mail que nous venons d'envoyer pour confirmer votre adresse, puis connectez-vous.",
   ok_link:"Si un compte existe avec cette adresse, un code vient d'être envoyé par e-mail. Pensez à vérifier les spams.",
   ok_password:"Mot de passe modifié. Vous êtes connecté.",ok_profile:"Profil enregistré.",ok_enroll:"Inscription enregistrée ! Nous vous contacterons pour la confirmer.",
@@ -286,7 +292,7 @@ const T = {
   e_login:"Diso ny mailaka na ny teny miafina.",e_confirm:"Hamafiso aloha ny adiresinao : sokafy ny rohy voaray tamin'ny mailaka.",
   e_exists:"Efa misy kaonty amin'io adiresy io. Midira na ampiasao ny « Adino ny teny miafina ».",
   e_rate:"Be loatra ny andrana. Miandrasa minitra vitsy dia andramo indray.",e_net:"Tsy afaka mifandray. Hamarino ny Internet-nao dia andramo indray.",
-  e_generic:"Nisy olana. Andramo indray na antsoy amin'ny WhatsApp izahay.",e_same:"Io no teny miafinao ankehitriny. Misafidiana hafa.",e_weak:"Mora vinaniana loatra ny teny miafina. Afangaroy litera, isa ary marika.",e_full:"Miala tsiny, feno ity fiofanana ity.",e_unavail:"Tsy misy intsony ity fiofanana ity.",
+  e_generic:"Nisy olana. Andramo indray na antsoy amin'ny WhatsApp izahay.",e_banned:"Voaato ny kaontinao. Raha mila fanazavana, antsoy ny N.I.C Mada amin'ny WhatsApp 032 02 367 02.",note_warn:"Fampitandremana avy amin'ny N.I.C Mada",note_susp:"Nato ny kaontinao",note_info:"Hafatra avy amin'ny N.I.C Mada",note_ok:"Azoko",e_same:"Io no teny miafinao ankehitriny. Misafidiana hafa.",e_weak:"Mora vinaniana loatra ny teny miafina. Afangaroy litera, isa ary marika.",e_full:"Miala tsiny, feno ity fiofanana ity.",e_unavail:"Tsy misy intsony ity fiofanana ity.",
   ok_signup_mail:"Voaforona ny kaonty ! Sokafy ny mailaka vao nalefanay hanamafisana ny adiresinao, dia midira.",
   ok_link:"Raha misy kaonty amin'io adiresy io dia nalefa tamin'ny mailaka ny kaody. Jereo koa ny spam.",
   ok_password:"Voaova ny teny miafina. Efa tafiditra ianao.",ok_profile:"Voatahiry ny momba anao.",ok_enroll:"Voaray ny fisoratanao anarana ! Hiantso anao izahay hanamafy izany.",
@@ -308,7 +314,7 @@ const T = {
   e_login:"Incorrect email or password.",e_confirm:"Please confirm your address first: open the link we emailed you.",
   e_exists:"An account already exists with this address. Sign in or use “Forgot password”.",
   e_rate:"Too many attempts. Wait a few minutes and try again.",e_net:"Cannot connect. Check your Internet and try again.",
-  e_generic:"Something went wrong. Try again or contact us on WhatsApp.",e_same:"This is already your current password. Choose a different one.",e_weak:"Password too easy to guess. Mix letters, numbers and a symbol.",e_full:"Sorry, this training is full.",e_unavail:"This training is no longer available.",
+  e_generic:"Something went wrong. Try again or contact us on WhatsApp.",e_banned:"Your account is suspended. For more information, contact N.I.C Mada on WhatsApp at +261 32 02 367 02.",note_warn:"Warning from N.I.C Mada",note_susp:"Your account was suspended",note_info:"Message from N.I.C Mada",note_ok:"Got it",e_same:"This is already your current password. Choose a different one.",e_weak:"Password too easy to guess. Mix letters, numbers and a symbol.",e_full:"Sorry, this training is full.",e_unavail:"This training is no longer available.",
   ok_signup_mail:"Account created! Open the email we just sent to confirm your address, then sign in.",
   ok_link:"If an account exists for this address, a code has been sent by email. Check your spam folder too.",
   ok_password:"Password changed. You are signed in.",ok_profile:"Profile saved.",ok_enroll:"Registration received! We will contact you to confirm it.",
@@ -344,6 +350,7 @@ function fmtDate(d){
 }
 function errText(e){
   const m = ((e && (e.message || e.error_description)) || "").toLowerCase();
+  if (m.includes("banned")) return t("e_banned");
   if (m.includes("invalid login")) return t("e_login");
   if (m.includes("not confirmed")) return t("e_confirm");
   if (m.includes("already registered") || m.includes("already exists")) return t("e_exists");
@@ -486,12 +493,14 @@ $("b-logout").onclick = async () => { await sb.auth.signOut(); state.user=null; 
 
 /* ------------------------------ Données ------------------------------ */
 async function loadAll(){
-  const [p, s, f, m] = await Promise.all([
+  const [p, s, f, m, n] = await Promise.all([
     sb.from("profils").select("nom,telephone,ville").eq("id", state.user.id).maybeSingle(),
     sb.from("logiciels").select("id,nom,description,version,plateforme,fichier,lien_externe").order("ordre").order("nom"),
     sb.rpc("formations_disponibles"),
-    sb.from("inscriptions").select("id,statut,cree_le,formation_id,formations(titre,date_debut,lieu)").order("cree_le",{ascending:false})
+    sb.from("inscriptions").select("id,statut,cree_le,formation_id,formations(titre,date_debut,lieu)").order("cree_le",{ascending:false}),
+    sb.from("client_messages").select("id,type,texte,cree_le").is("lu_le", null).order("cree_le",{ascending:false}).limit(10)
   ]);
+  state.notes = n.error ? [] : (n.data || []);
   const err = [p,s,f,m].find(r => r.error);
   if (err) msg("m-dash", errText(err.error), "err");
   state.profil = p.data || { nom:"", telephone:"", ville:"" };
@@ -499,8 +508,24 @@ async function loadAll(){
   renderAll();
 }
 
+function renderNotes(){
+  const box = $("m-notes"); if (!box) return;
+  const T = { avertissement:["warn","note_warn","⚠️"], suspension:["susp","note_susp","⏸"], info:["info","note_info","ℹ️"] };
+  box.innerHTML = (state.notes || []).map(x => { const k = T[x.type] || T.info; return `
+    <div class="note ${k[0]}" role="alert"><div style="font-size:22px">${k[2]}</div>
+      <div><b>${esc(t(k[1]))}</b><p>${esc(x.texte)}</p><small>${esc(new Date(x.cree_le).toLocaleDateString(LANG === "en" ? "en-GB" : "fr-FR"))}</small></div>
+      <button type="button" class="btn btn-line" data-lu="${x.id}">${esc(t("note_ok"))}</button></div>`; }).join("");
+  box.querySelectorAll("[data-lu]").forEach(b => b.onclick = async () => {
+    b.disabled = true;
+    const { error } = await sb.from("client_messages").update({ lu_le: new Date().toISOString() }).eq("id", +b.dataset.lu);
+    if (error) { b.disabled = false; return msg("m-dash", errText(error), "err"); }
+    state.notes = state.notes.filter(x => x.id !== +b.dataset.lu); renderNotes();
+  });
+}
+
 function renderAll(){
   if (!state.user) return;
+  renderNotes();
   $("d-name").textContent = (state.profil && state.profil.nom) ? state.profil.nom.split(" ")[0] : "";
   $("pr-nom").value = state.profil?.nom || ""; $("pr-tel").value = state.profil?.telephone || ""; $("pr-ville").value = state.profil?.ville || "";
 
