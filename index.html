@@ -227,6 +227,8 @@ footer{background:var(--ink);color:#c9d1e6;padding:56px 0 0;font-size:14.5px}
 .trust{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:40px}
 .trust div{display:flex;gap:12px;align-items:center;background:var(--blue);color:#fff;border-radius:14px;padding:16px 18px;font-weight:600;font-size:15px}
 .trust b{font-size:24px}
+.mk{margin-top:22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#fff;border:1.5px dashed var(--gold);border-radius:16px;padding:18px 20px}
+.mk b{display:block;font-size:18px;color:var(--blue)}.mk span{color:var(--muted);font-size:15px}.mk-b{display:flex;gap:10px;flex-wrap:wrap}.mk-l{border:2px solid var(--line);color:var(--blue)}
 
 @media (max-width:880px){
   .menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--bg);flex-direction:column;padding:18px 22px;gap:16px;border-bottom:1px solid var(--line)}
@@ -514,6 +516,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);
       <div><b>⚙️</b><span data-i18n="tr3">Windows et logiciels installés</span></div>
       <div><b>🤝</b><span data-i18n="tr4">Conseil adapté à votre budget</span></div>
     </div>
+    <div class="mk"><div><b data-i18n="mk_t">🏪 Boutiques des vendeurs vérifiés</b><span data-i18n="mk_s">Du matériel informatique et technique proposé par des vendeurs dont N.I.C Mada a vérifié l'identité. Vous vendez aussi ? Ouvrez votre boutique.</span></div>
+      <div class="mk-b"><a class="btn btn-gold" href="boutiques.html" data-i18n="mk_b1">Voir les boutiques</a><a class="btn mk-l" href="compte.html#boutique" data-i18n="mk_b2">Ouvrir ma boutique</a></div></div>
   </div>
 </section>
 
@@ -748,7 +752,7 @@ const T = {
   hero_tag:"💻\u00a0Informatika\u00a0· ⚡\u00a0Herinaratra\u00a0&\u00a0angovo\u00a0· 🩺\u00a0Fitaovana\u00a0ara-pitsaboana\u00a0· 🚗\u00a0Mekanika\u00a0fiara",
   sh_kicker:"Fivarotana informatika",sh_title:"Solosaina sy fitaovana, notsapain'ny teknisianina",
   sh_text:"Vaovao na nohavaozina, zahana tsara ny fitaovana tsirairay alohan'ny hivarotana azy. Lazao izay tadiavinao, hitadiavanay ny modely mifanaraka amin'ny tetibolanao.",
-  sh_now:"Misy ankehitriny",sh_ask:"Tsindrio ny sokajy iray hilazana aminay amin'ny WhatsApp izay tadiavinao : hanolotra anao ireo modely misy sy ny vidiny izahay.",tr1:"Fikojakojana aorian'ny fivarotana ao amin'ny atelier-nay",tr2:"Notsapaina sy nodiovin'ny teknisianina",tr3:"Efa misy Windows sy rindrambaiko",tr4:"Torohevitra mifanaraka amin'ny tetibolanao",
+  sh_now:"Misy ankehitriny",sh_ask:"Tsindrio ny sokajy iray hilazana aminay amin'ny WhatsApp izay tadiavinao : hanolotra anao ireo modely misy sy ny vidiny izahay.",tr1:"Fikojakojana aorian'ny fivarotana ao amin'ny atelier-nay",tr2:"Notsapaina sy nodiovin'ny teknisianina",tr3:"Efa misy Windows sy rindrambaiko",tr4:"Torohevitra mifanaraka amin'ny tetibolanao",mk_t:"🏪 Fivarotan'ny mpivarotra voamarina",mk_s:"Fitaovana informatika sy teknika atolotry ny mpivarotra nohamarinin'ny N.I.C Mada ny mombamomba azy. Mpivarotra koa ianao ? Sokafy ny fivarotanao.",mk_b1:"Hijery ny fivarotana",mk_b2:"Hanokatra ny fivarotako",
   c1:"Solosaina finday",c2:"Solosaina birao",c3:"Kojakoja",c4:"Singa sy kojakoja anatiny",c5:"Mpanonta",c6:"Tambajotra & Wi-Fi",
   st_neuf:"Vaovao",st_reco:"Nohavaozina",st_comme_neuf:"Toy ny vaovao",st_bonne_occasion:"Efa niasa, tsara toetra",st_seconde_main:"Efa niasa",ph_prev:"Sary teo aloha",ph_next:"Sary manaraka",ask_price:"Anontanio ny vidiny",order:"💬 Hanafatra",
   wa_cat:"Salama, mitady :",wa_prod:"Salama, liana amin'ity aho :",f_o6:"Fividianana solosaina / fitaovana",
@@ -794,7 +798,7 @@ const T = {
   hero_tag:"💻\u00a0IT\u00a0· ⚡\u00a0Electrical\u00a0&\u00a0power\u00a0· 🩺\u00a0Biomedical\u00a0· 🚗\u00a0Auto\u00a0mechanics",
   sh_kicker:"IT shop",sh_title:"Computers and hardware, tested by a technician",
   sh_text:"New or refurbished, every device is checked before sale. Tell us what you need and we'll find the right model for your budget.",
-  sh_now:"Available now",sh_ask:"Click a category to tell us on WhatsApp what you are looking for: we will suggest the models in stock and their prices.",tr1:"After-sales service in our workshop",tr2:"Tested and cleaned by a technician",tr3:"Windows and software installed",tr4:"Advice tailored to your budget",
+  sh_now:"Available now",sh_ask:"Click a category to tell us on WhatsApp what you are looking for: we will suggest the models in stock and their prices.",tr1:"After-sales service in our workshop",tr2:"Tested and cleaned by a technician",tr3:"Windows and software installed",tr4:"Advice tailored to your budget",mk_t:"🏪 Verified seller shops",mk_s:"IT and technical equipment offered by sellers whose identity N.I.C Mada has verified. Selling too? Open your shop.",mk_b1:"Browse shops",mk_b2:"Open my shop",
   c1:"Laptops",c2:"Desktop PCs",c3:"Accessories",c4:"Parts & components",c5:"Printers",c6:"Network & Wi-Fi",
   st_neuf:"New",st_reco:"Refurbished",st_comme_neuf:"Like new",st_bonne_occasion:"Good condition (used)",st_seconde_main:"Second-hand",ph_prev:"Previous photo",ph_next:"Next photo",ask_price:"Price on request",order:"💬 Order",
   wa_cat:"Hello, I'm looking for:",wa_prod:"Hello, I'm interested in:",f_o6:"Buy a computer / hardware",

@@ -97,6 +97,31 @@ dialog{border:0;border-radius:18px;padding:26px;max-width:440px;width:92%;box-sh
 dialog::backdrop{background:rgba(12,22,51,.55)}
 dialog h3{margin-bottom:6px}
 .hidden{display:none!important}
+select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15.5px;margin-bottom:14px;background:#f7f9fe}
+.hint{color:var(--muted);font-size:13.5px;margin:-6px 0 14px}
+.shop-intro{border:1px solid var(--line);border-radius:16px;padding:22px;background:linear-gradient(180deg,#f7f9ff,#fff)}
+.shop-intro h3{font-size:21px;margin-bottom:8px}.shop-intro p{color:var(--muted);margin-bottom:10px}
+.shop-intro ul{margin:0 0 18px 18px;color:var(--muted);font-size:14.5px;display:grid;gap:4px}
+.shop-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.shop-head h3{font-size:21px;margin-bottom:4px}
+.shop-form{border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:22px}
+.radios{border:0;padding:0;margin:0 0 14px;display:flex;gap:18px;flex-wrap:wrap}
+.radios legend{font-weight:700;font-size:14px;margin-bottom:6px;width:100%}
+.radios label{display:flex;align-items:center;gap:8px;font-weight:500;margin:0}.radios input{width:auto;margin:0}
+.shop-sub{font-size:18px;margin:18px 0 6px}.shop-sub small{color:var(--muted);font-weight:500}
+.shop-logo{width:46px;height:46px;border-radius:10px;object-fit:cover;display:block;margin-bottom:6px}
+.docs{display:grid;gap:10px;margin-bottom:14px}
+.doc{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px}
+.doc input{margin:0;padding:8px;font-size:14px}
+.pthumb{width:56px;height:56px;border-radius:10px;background:var(--soft);display:grid;place-items:center;overflow:hidden;font-size:24px;flex:none}
+.pthumb img{width:100%;height:100%;object-fit:cover}
+.pform{border:1.5px solid var(--blue-2);border-radius:16px;padding:18px;margin-bottom:16px;background:#fbfcff}
+.photos3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.photos3 .ph{display:flex;flex-direction:column;gap:6px;min-width:0}
+.photos3 .prev{aspect-ratio:1;border-radius:12px;background:#eef3ff;display:grid;place-items:center;overflow:hidden;font-size:28px;color:#8a97b8}
+.photos3 .prev img{width:100%;height:100%;object-fit:cover}
+.photos3 small{font-weight:700;font-size:12.5px}
+.photos3 input[type=file]{font-size:12px;padding:6px;margin:0}
 @media (max-width:640px){.item{flex-direction:column;align-items:flex-start}.acts{justify-content:flex-start}.row2{grid-template-columns:1fr}.back{display:none}}
 </style>
 </head>
@@ -208,12 +233,14 @@ dialog h3{margin-bottom:6px}
       <button type="button" class="dtab on" data-panel="p-soft" data-t="tab_soft">💻 Mes logiciels</button>
       <button type="button" class="dtab" data-panel="p-form" data-t="tab_form">🎓 Formations</button>
       <button type="button" class="dtab" data-panel="p-mine" data-t="tab_mine">📋 Mes inscriptions</button>
+      <button type="button" class="dtab" data-panel="p-shop" data-t="tab_shop">🏪 Ma boutique</button>
       <button type="button" class="dtab" data-panel="p-prof" data-t="tab_prof">👤 Mon profil</button>
     </div>
 
     <section id="p-soft" class="panel on"><p class="msg info show" style="margin-bottom:14px" data-t="trial_note">Essai gratuit de 15 jours. Pour continuer ensuite, demandez votre code d'activation sur WhatsApp au +261&nbsp;32&nbsp;02&nbsp;367&nbsp;02.</p><div class="list" id="l-soft"></div></section>
     <section id="p-form" class="panel"><div class="list" id="l-form"></div></section>
     <section id="p-mine" class="panel"><div class="list" id="l-mine"></div></section>
+    <section id="p-shop" class="panel"></section>
     <section id="p-prof" class="panel">
       <form id="f-prof" style="max-width:480px">
         <label for="pr-nom" data-t="name">Nom et prénom</label>
@@ -260,7 +287,7 @@ const T = {
   accept:"J'accepte la",privacy:"politique de confidentialité",do_signup:"Créer mon compte",
   forgot_d:"Saisissez votre e-mail : nous vous envoyons un code pour choisir un nouveau mot de passe.",send_link:"Recevoir le code",code_d:"Nous vous avons envoyé un e-mail avec un code. Saisissez-le ci-dessous avec votre nouveau mot de passe.",code:"Code reçu par e-mail",resend:"Renvoyer un code",ok_resent:"Un nouveau code vient d'être envoyé. Utilisez le plus récent.",e_code:"Code incorrect ou expiré. Vérifiez le dernier e-mail reçu, ou demandez un nouveau code.",e_link:"Ce lien a expiré ou a déjà été utilisé. Demandez un code ci-dessous : c'est plus fiable.",back_login:"← Retour à la connexion",
   reset_d:"Choisissez votre nouveau mot de passe.",new_password:"Nouveau mot de passe",save_password:"Enregistrer",
-  hello:"Bonjour",logout:"Se déconnecter",tab_soft:"💻 Mes logiciels",tab_form:"🎓 Formations",tab_mine:"📋 Mes inscriptions",tab_prof:"👤 Mon profil",save:"Enregistrer",
+  hello:"Bonjour",logout:"Se déconnecter",tab_soft:"💻 Mes logiciels",tab_form:"🎓 Formations",tab_mine:"📋 Mes inscriptions",tab_prof:"👤 Mon profil",tab_shop:"🏪 Ma boutique",save:"Enregistrer",
   upcoming:"🎓 Prochaines formations",dlg_d:"Votre demande sera confirmée par N.I.C Mada par téléphone ou WhatsApp.",dlg_msg:"Message (facultatif)",cancel:"Annuler",confirm:"Confirmer l'inscription",
   download:"⬇ Télécharger",version:"Version",no_soft:"Aucun logiciel disponible pour le moment.",no_form:"Aucune formation programmée pour le moment. Revenez bientôt !",
   no_mine:"Vous n'êtes inscrit à aucune formation.",enroll:"S'inscrire",login_to_enroll:"Se connecter pour s'inscrire",full:"Complet",
@@ -282,7 +309,7 @@ const T = {
   accept:"Ekeko ny",privacy:"politika momba ny tsiambaratelo",do_signup:"Hamorona ny kaontiko",
   forgot_d:"Ampidiro ny mailakao : handefa kaody ahafahanao misafidy teny miafina vaovao izahay.",send_link:"Handray ny kaody",code_d:"Nandefa mailaka misy kaody izahay. Ampidiro eto ambany izany miaraka amin'ny teny miafina vaovao.",code:"Kaody voaray tamin'ny mailaka",resend:"Alefaso indray ny kaody",ok_resent:"Nalefa ny kaody vaovao. Ampiasao ilay farany.",e_code:"Diso na lany daty ny kaody. Jereo ny mailaka farany, na mangataha kaody vaovao.",e_link:"Lany daty na efa nampiasaina io rohy io. Mangataha kaody eto ambany.",back_login:"← Hiverina amin'ny fidirana",
   reset_d:"Safidio ny teny miafina vaovao.",new_password:"Teny miafina vaovao",save_password:"Tehirizina",
-  hello:"Salama",logout:"Hivoaka",tab_soft:"💻 Ny rindrambaikoko",tab_form:"🎓 Fiofanana",tab_mine:"📋 Ny fisoratako anarana",tab_prof:"👤 Ny momba ahy",save:"Tehirizina",
+  hello:"Salama",logout:"Hivoaka",tab_soft:"💻 Ny rindrambaikoko",tab_form:"🎓 Fiofanana",tab_mine:"📋 Ny fisoratako anarana",tab_prof:"👤 Ny momba ahy",tab_shop:"🏪 Ny fivarotako",save:"Tehirizina",
   upcoming:"🎓 Fiofanana manaraka",dlg_d:"Hamafisin'ny N.I.C Mada amin'ny telefaonina na WhatsApp ny fangatahanao.",dlg_msg:"Hafatra (tsy voatery)",cancel:"Aoka ihany",confirm:"Hamafiso ny fisoratana anarana",
   download:"⬇ Ampidino",version:"Version",no_soft:"Mbola tsy misy rindrambaiko azo ampidinina.",no_form:"Mbola tsy misy fiofanana voalahatra. Miverena tsy ho ela !",
   no_mine:"Tsy mbola nisoratra anarana tamin'ny fiofanana ianao.",enroll:"Hisoratra anarana",login_to_enroll:"Midira raha hisoratra anarana",full:"Feno",
@@ -304,7 +331,7 @@ const T = {
   accept:"I accept the",privacy:"privacy policy",do_signup:"Create my account",
   forgot_d:"Enter your email: we'll send you a code to choose a new password.",send_link:"Get the code",code_d:"We sent you an email with a code. Enter it below with your new password.",code:"Code received by email",resend:"Send a new code",ok_resent:"A new code has been sent. Use the most recent one.",e_code:"Wrong or expired code. Check the latest email, or request a new code.",e_link:"This link has expired or was already used. Request a code below instead.",back_login:"← Back to sign in",
   reset_d:"Choose your new password.",new_password:"New password",save_password:"Save",
-  hello:"Hello",logout:"Sign out",tab_soft:"💻 My software",tab_form:"🎓 Training",tab_mine:"📋 My registrations",tab_prof:"👤 My profile",save:"Save",
+  hello:"Hello",logout:"Sign out",tab_soft:"💻 My software",tab_form:"🎓 Training",tab_mine:"📋 My registrations",tab_prof:"👤 My profile",tab_shop:"🏪 My shop",save:"Save",
   upcoming:"🎓 Upcoming training",dlg_d:"N.I.C Mada will confirm your request by phone or WhatsApp.",dlg_msg:"Message (optional)",cancel:"Cancel",confirm:"Confirm registration",
   download:"⬇ Download",version:"Version",no_soft:"No software available yet.",no_form:"No training scheduled yet. Check back soon!",
   no_mine:"You are not registered for any training.",enroll:"Sign up",login_to_enroll:"Sign in to register",full:"Full",
@@ -403,6 +430,7 @@ async function onSession(session){
   await loadAll();
   if (location.hash === "#formations") openPanel("p-form");
   if (location.hash === "#logiciels") openPanel("p-soft");
+  if (location.hash === "#boutique") openPanel("p-shop");
 }
 
 /* ------------------------------ Auth ------------------------------ */
@@ -489,7 +517,7 @@ $("f-reset").onsubmit = async e => {
   msg("m-dash", t("ok_password"), "ok");
 };
 
-$("b-logout").onclick = async () => { await sb.auth.signOut(); state.user=null; location.hash=""; };
+$("b-logout").onclick = async () => { await sb.auth.signOut(); state.user=null; if (window.MB) MB.reset(); location.hash=""; };
 
 /* ------------------------------ Données ------------------------------ */
 async function loadAll(){
@@ -506,6 +534,7 @@ async function loadAll(){
   state.profil = p.data || { nom:"", telephone:"", ville:"" };
   state.softs = s.data || []; state.forms = f.data || []; state.mine = m.data || [];
   renderAll();
+  if (window.MB) await MB.load();
 }
 
 function renderNotes(){
@@ -526,6 +555,7 @@ function renderNotes(){
 function renderAll(){
   if (!state.user) return;
   renderNotes();
+  if (window.MB) MB.render();
   $("d-name").textContent = (state.profil && state.profil.nom) ? state.profil.nom.split(" ")[0] : "";
   $("pr-nom").value = state.profil?.nom || ""; $("pr-tel").value = state.profil?.telephone || ""; $("pr-ville").value = state.profil?.ville || "";
 
@@ -637,5 +667,6 @@ document.addEventListener("click", async e => {
   }
 });
 </script>
+<script src="js/ma-boutique.js"></script>
 </body>
 </html>
