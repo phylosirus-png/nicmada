@@ -226,6 +226,11 @@ footer{background:var(--ink);color:#c9d1e6;padding:56px 0 0;font-size:14.5px}
 .prod p{font-size:14.5px;flex:1}
 .price{font-size:20px;font-weight:800;color:var(--blue);margin:12px 0}
 .prod .btn{text-align:center;padding:11px;font-size:15px}
+.prod .vend{margin:2px 0 12px;padding:9px 11px;border-radius:10px;background:#f3f6fd;border:1px solid var(--line);font-size:13.5px;line-height:1.45}
+.prod .vend a{font-weight:700;text-decoration:none;color:var(--blue-2)}.prod .vend b{color:var(--blue)}
+.prod .vend .ok{display:inline-block;font-size:11px;font-weight:800;color:#14804a;background:#e6f6ec;border-radius:999px;padding:1px 7px;margin-left:4px}
+.prod .vend small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.prod .btn-wa{background:#1fa855;color:#fff}
 .shop-ask{color:var(--muted);margin-top:-22px;font-size:15.5px}
 .trust{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:40px}
 .trust div{display:flex;gap:12px;align-items:center;background:var(--blue);color:#fff;border-radius:14px;padding:16px 18px;font-weight:600;font-size:15px}
@@ -716,6 +721,16 @@ const CATEGORIES = [
 ];
 
 function wa(txt){ return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(txt)}`; }
+/* Produit d'un vendeur vérifié : nom de la boutique + coordonnées du vendeur, contact direct */
+function numWa(n){ let d=String(n||"").replace(/\D/g,""); if(d.startsWith("0")) d="261"+d.slice(1); return d.length>=9?d:""; }
+function vendeurHtml(p, t){
+  const v=p.v, w=numWa(v.whatsapp||v.telephone), tel=String(v.telephone||"").replace(/[^\d+]/g,"");
+  const coord=[v.whatsapp?"💬 "+esc(v.whatsapp):"", v.telephone?`📞 <a href="tel:${esc(tel)}">${esc(v.telephone)}</a>`:""].filter(Boolean).join("<br>");
+  return `<div class="vend">🏪 <a href="boutiques.html?b=${encodeURIComponent(v.slug)}">${esc(v.nom)}</a><span class="ok">${esc(t("v_ok"))}</span>${v.ville?` · 📍 ${esc(v.ville)}`:""}
+      ${coord?`<br>${coord}`:""}<small>${esc(t("v_note"))}</small></div>
+    ${w?`<a class="btn btn-wa" target="_blank" rel="noopener" href="https://wa.me/${w}?text=${encodeURIComponent(t("v_msg")+" "+p.nom+(p.prix?" ("+p.prix+")":""))}">${esc(t("v_contact"))}</a>`
+       : tel?`<a class="btn btn-gold" href="tel:${esc(tel)}">${esc(t("v_call"))}</a>`:""}`;
+}
 function esc(t){ const d=document.createElement("div"); d.textContent=t; return d.innerHTML; }
 
 function renderBoutique(l){
@@ -735,7 +750,7 @@ function renderBoutique(l){
         <h3>${esc(p.nom)}</h3>
         <p>${esc(p.details)}</p>
         <div class="price">${esc(p.prix||t("ask_price"))}</div>
-        <a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(t("wa_prod")+" "+p.nom+" ("+p.details+")")}">${esc(t("order"))}</a>
+        ${p.v ? vendeurHtml(p, t) : `<a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(t("wa_prod")+" "+p.nom+" ("+p.details+")")}">${esc(t("order"))}</a>`}
       </div>
     </div>`;}).join("");
   document.querySelectorAll("#produits .pic").forEach(pic=>{
@@ -750,7 +765,8 @@ function renderBoutique(l){
 const T = {
  fr:{c1:"Ordinateurs portables",c2:"PC de bureau",c3:"Accessoires",c4:"Pièces & composants",c5:"Imprimantes",c6:"Réseau & Wi-Fi",
   st_neuf:"Neuf",st_reco:"Reconditionné",st_comme_neuf:"Comme neuf",st_bonne_occasion:"Bonne occasion",st_seconde_main:"2ᵉ main",ph_prev:"Photo précédente",ph_next:"Photo suivante",ask_price:"Prix sur demande",order:"💬 Commander",
-  wa_cat:"Bonjour, je cherche :",wa_prod:"Bonjour, je suis intéressé(e) par :"},
+  wa_cat:"Bonjour, je cherche :",wa_prod:"Bonjour, je suis intéressé(e) par :",
+  v_ok:"✓ vérifié",v_note:"Vente directe avec ce vendeur, vérifié par N.I.C Mada.",v_contact:"💬 Contacter le vendeur",v_call:"📞 Appeler le vendeur",v_msg:"Bonjour, j'ai vu sur nicmada.com :"},
  mg:{
   nav_shop:"Fivarotana",acct:"Hiditra / Hisoratra",s4_link:"Hisoratra anarana amin'ny fiofanana →",brand_act:"Informatika · Herinaratra · Fitsaboana · Mekanika",ft_links:"Rohy haingana",legal:"Fanamarihana ara-dalàna & tsiambaratelo",skip:"Mankany amin'ny votoaty",slogan:"« Ny traikefa no mitsara ny teoria ! »",hero_btn3:"🛒 Jereo ny fivarotana",share_btn:"📤 Hizara",share_site:"📤 Hizara ny tranonkala",
   tg1:"💻 Informatika",tg2:"⚡ Herinaratra & angovo",tg3:"🩺 Fitaovana ara-pitsaboana",tg4:"🚗 Mekanika fiara",hero_tag:"💻\u00a0Informatika\u00a0· ⚡\u00a0Herinaratra\u00a0&\u00a0angovo\u00a0· 🩺\u00a0Fitaovana\u00a0ara-pitsaboana\u00a0· 🚗\u00a0Mekanika\u00a0fiara",
@@ -759,7 +775,7 @@ const T = {
   sh_now:"Misy ankehitriny",sh_ask:"Tsindrio ny sokajy iray hilazana aminay amin'ny WhatsApp izay tadiavinao : hanolotra anao ireo modely misy sy ny vidiny izahay.",tr1:"Fikojakojana aorian'ny fivarotana ao amin'ny atelier-nay",tr2:"Notsapaina sy nodiovin'ny teknisianina",tr3:"Efa misy Windows sy rindrambaiko",tr4:"Torohevitra mifanaraka amin'ny tetibolanao",mk_t:"🏪 Fivarotan'ny mpivarotra voamarina",mk_s:"Fitaovana informatika sy teknika atolotry ny mpivarotra nohamarinin'ny N.I.C Mada ny mombamomba azy. Mpivarotra koa ianao ? Sokafy ny fivarotanao.",mk_b1:"Hijery ny fivarotana",mk_b2:"Hanokatra ny fivarotako",
   c1:"Solosaina finday",c2:"Solosaina birao",c3:"Kojakoja",c4:"Singa sy kojakoja anatiny",c5:"Mpanonta",c6:"Tambajotra & Wi-Fi",
   st_neuf:"Vaovao",st_reco:"Nohavaozina",st_comme_neuf:"Toy ny vaovao",st_bonne_occasion:"Efa niasa, tsara toetra",st_seconde_main:"Efa niasa",ph_prev:"Sary teo aloha",ph_next:"Sary manaraka",ask_price:"Anontanio ny vidiny",order:"💬 Hanafatra",
-  wa_cat:"Salama, mitady :",wa_prod:"Salama, liana amin'ity aho :",f_o6:"Fividianana solosaina / fitaovana",
+  wa_cat:"Salama, mitady :",wa_prod:"Salama, liana amin'ity aho :",v_ok:"✓ voamarina",v_note:"Mivantana amin'ity mpivarotra ity ny varotra, voamarin'ny N.I.C Mada.",v_contact:"💬 Hifandray amin'ny mpivarotra",v_call:"📞 Hiantso ny mpivarotra",v_msg:"Salama, hitako tao amin'ny nicmada.com :",f_o6:"Fividianana solosaina / fitaovana",
   nav_services:"Tolotra",nav_soft:"Rindrambaiko sy fampidinana",nav_about:"Momba anay",nav_contact:"Fifandraisana",
   hero_title:"Ny traikefa no mitsara <em>ny teoria !</em>",
   hero_text:"Fivarotana sy fanamboarana solosaina nanomboka tamin'ny 2009, rindrambaiko matihanina ary fiofanana. Fametrahana herinaratra amin'ny trano, groupe électrogène, fikojakojana fitaovana ara-pitsaboana ary mekanika fiara.",
@@ -804,7 +820,7 @@ const T = {
   sh_text:"New or refurbished, every device is checked before sale. Tell us what you need and we'll find the right model for your budget.",
   sh_now:"Available now",sh_ask:"Click a category to tell us on WhatsApp what you are looking for: we will suggest the models in stock and their prices.",tr1:"After-sales service in our workshop",tr2:"Tested and cleaned by a technician",tr3:"Windows and software installed",tr4:"Advice tailored to your budget",mk_t:"🏪 Verified seller shops",mk_s:"IT and technical equipment offered by sellers whose identity N.I.C Mada has verified. Selling too? Open your shop.",mk_b1:"Browse shops",mk_b2:"Open my shop",
   c1:"Laptops",c2:"Desktop PCs",c3:"Accessories",c4:"Parts & components",c5:"Printers",c6:"Network & Wi-Fi",
-  st_neuf:"New",st_reco:"Refurbished",st_comme_neuf:"Like new",st_bonne_occasion:"Good condition (used)",st_seconde_main:"Second-hand",ph_prev:"Previous photo",ph_next:"Next photo",ask_price:"Price on request",order:"💬 Order",
+  st_neuf:"New",st_reco:"Refurbished",st_comme_neuf:"Like new",st_bonne_occasion:"Good condition (used)",st_seconde_main:"Second-hand",ph_prev:"Previous photo",ph_next:"Next photo",ask_price:"Price on request",order:"💬 Order",v_ok:"✓ verified",v_note:"Direct sale with this seller, verified by N.I.C Mada.",v_contact:"💬 Contact the seller",v_call:"📞 Call the seller",v_msg:"Hello, I saw on nicmada.com:",
   wa_cat:"Hello, I'm looking for:",wa_prod:"Hello, I'm interested in:",f_o6:"Buy a computer / hardware",
   nav_services:"Services",nav_soft:"Software & downloads",nav_about:"About",nav_contact:"Contact",
   hero_title:"Experience <em>judges theory!</em>",
