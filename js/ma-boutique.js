@@ -36,6 +36,7 @@
       sh_wait_p: "Vos pièces sont en cours de vérification. Vous pouvez déjà préparer vos produits : ils apparaîtront dès la validation.",
       sh_ok_p: "Votre boutique est en ligne. Ajoutez et mettez à jour vos produits ci-dessous.",
       sh_ref_p: "Votre boutique n'a pas été validée. Motif :", sh_susp_p: "Votre boutique est suspendue et n'est plus visible. Motif :",
+      sh_share: "📤 Partager ma boutique", sh_share_txt: "Découvrez ma boutique « %s » sur nicmada.com : vendeur vérifié par N.I.C Mada.",
       sh_see: "Voir ma boutique ↗", sh_locked: "Les informations légales ne sont plus modifiables après l'envoi. Contactez N.I.C Mada pour toute correction.",
       sh_need_certify: "Cochez la case de certification avant d'envoyer.",
       sh_need_fields: "Complétez les champs obligatoires (nom de la boutique, responsable, téléphone ou WhatsApp ; pour une entreprise : raison sociale, NIF, STAT, RCS).",
@@ -82,6 +83,7 @@
       sh_wait_p: "Eo am-panamarinana ny taratasinao. Afaka manomana ny entanao ianao : hiseho izy ireo rehefa voamarina.",
       sh_ok_p: "Efa an-tserasera ny fivarotanao. Ampio sy havaozy eto ambany ny entanao.",
       sh_ref_p: "Tsy nekena ny fivarotanao. Antony :", sh_susp_p: "Nato ny fivarotanao ary tsy hita intsony. Antony :",
+      sh_share: "📤 Hizara ny fivarotako", sh_share_txt: "Jereo ny fivarotako « %s » ao amin'ny nicmada.com : mpivarotra voamarin'ny N.I.C Mada.",
       sh_see: "Hijery ny fivarotako ↗", sh_locked: "Tsy azo ovaina intsony ny mombamomba ara-dalàna rehefa nalefa. Antsoy ny N.I.C Mada raha misy ahitsy.",
       sh_need_certify: "Kitiho aloha ny fanamarinana vao mandefa.",
       sh_need_fields: "Fenoy ireo saha tsy maintsy misy (anaran'ny fivarotana, tompon'andraikitra, finday na WhatsApp ; ho an'ny orinasa : anarany, NIF, STAT, RCS).",
@@ -128,6 +130,7 @@
       sh_wait_p: "Your documents are being checked. You can already prepare your products: they will appear once approved.",
       sh_ok_p: "Your shop is live. Add and update your products below.",
       sh_ref_p: "Your shop was not approved. Reason:", sh_susp_p: "Your shop is suspended and no longer visible. Reason:",
+      sh_share: "📤 Share my shop", sh_share_txt: "Check out my shop “%s” on nicmada.com — seller verified by N.I.C Mada.",
       sh_see: "View my shop ↗", sh_locked: "Legal details can no longer be changed after sending. Contact N.I.C Mada for any correction.",
       sh_need_certify: "Tick the certification box before sending.",
       sh_need_fields: "Fill in the required fields (shop name, person in charge, phone or WhatsApp; for a company: company name, NIF, STAT, RCS).",
@@ -156,6 +159,7 @@
   const uid = () => state.user && state.user.id;
   const val = id => ($(id) && $(id).value || "").trim();
   const docNom = (k, type) => (type === "entreprise" && T.fr["docr_" + k]) ? t("docr_" + k) : t("doc_" + k);
+  const attr = s => esc(s).replace(/"/g, "&quot;");
   const editable = () => !S.b || S.b.statut === "brouillon" || S.b.statut === "refusee";
 
   /* ---------------- Fichiers ---------------- */
@@ -277,7 +281,7 @@
     let h = "";
     if (b) {
       h += `<div class="shop-head"><div><h3>${esc(b.nom)}</h3><span class="pill ${STATUT_PILL[b.statut] || "p-off"}">${esc(t("st_" + b.statut))}</span></div>
-        ${b.statut === "validee" ? `<a class="btn btn-line" href="boutiques.html?b=${encodeURIComponent(b.slug)}" target="_blank" rel="noopener">${esc(t("sh_see"))}</a>` : ""}</div>`;
+        ${b.statut === "validee" ? `<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn btn-gold" data-share data-share-url="https://nicmada.com/boutiques.html?b=${encodeURIComponent(b.slug)}" data-share-title="${attr(b.nom)}" data-share-text="${attr(t("sh_share_txt").replace("%s", b.nom))}">${esc(t("sh_share"))}</button><a class="btn btn-line" href="boutiques.html?b=${encodeURIComponent(b.slug)}" target="_blank" rel="noopener">${esc(t("sh_see"))}</a></div>` : ""}</div>`;
       if (b.statut === "en_attente") h += `<p class="msg info show">${esc(t("sh_wait_p"))}</p>`;
       if (b.statut === "validee") h += `<p class="msg ok show">${esc(t("sh_ok_p"))}</p>`;
       if (b.statut === "refusee") h += `<p class="msg err show">${esc(t("sh_ref_p"))} ${esc(b.motif || "—")}</p>`;
